@@ -67,3 +67,12 @@
     font-size: 14px;
     color: #1e56a0;
 }
+
+.obat .card-img-top {
+    height: 55px;
+    width: 55px;
+}
+.footer {
+    background-color: #163172;
+    margin-top: 100px;
+}
