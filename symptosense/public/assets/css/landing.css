@@ -1,0 +1,69 @@
+* {
+    font-family: "Inter", sans-serif;
+}
+
+.navbar .register {
+    background-color: #1e56a0;
+    border-color: #1e56a0;
+}
+
+.navbar .login {
+    background-color: #163172;
+    border-color: #163172;
+}
+
+.navbar .navbar-nav {
+    margin-left: 75px;
+}
+
+.symptosense {
+    font-weight: bold;
+    color: #1e56a0;
+}
+
+.bg-primary {
+    background: linear-gradient(to bottom, #1e56a0, #0b1f3a);
+}
+
+.text-gambar {
+    height: auto;
+    width: 70%;
+    margin-left: 100px;
+}
+
+.deskripsi {
+    margin-top: 21px;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+.container-fluid .try-it {
+    margin-top: 75px;
+    background: linear-gradient(to bottom, #a6d6ff, #5989b1);
+    border-radius: 15px;
+    font-size: 25px;
+    color: white;
+}
+
+.about-us {
+    padding-top: 80px;
+}
+
+.artikel {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.container .card {
+    width: 280px;
+}
+
+.container .card-img-top {
+    width: 280px;
+}
+
+.lihat-semua {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e56a0;
+}
