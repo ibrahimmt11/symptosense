@@ -1,0 +1,65 @@
+* {
+    font-family: "Inter", sans-serif;
+}
+
+.navbar .register {
+    background-color: #1e56a0;
+    border-color: #1e56a0;
+}
+
+.navbar .login {
+    background-color: #163172;
+    border-color: #163172;
+}
+
+.navbar .navbar-nav {
+    margin-left: 75px;
+}
+
+.symptosense {
+    font-weight: bold;
+    color: #1e56a0;
+}
+
+.bg-holder {
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    background-size: conver;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login {
+    padding-top: 50px;
+}
+
+.container .signup {
+    background-color: #163172;
+    border-color: #163172;
+}
+
+.fw-bold {
+    color: #163172;
+}
+
+.container .gambar {
+    margin-top: 100px;
+    max-width: 70%;
+    max-height: 70%;
+}
+
+.bg-right {
+    background: linear-gradient(to bottom, #1e56a0, #0b1f3a);
+}
+
+.carousel .title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.container .forgot-password {
+    margin-left: 85px;
+}

@@ -8,14 +8,13 @@
   <link rel="stylesheet" href="assets/css/landing.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
   <title>Landing</title>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid mx-5">
-      <a class="navbar-brand symptosense" href="#">
+      <a class="navbar-brand symptosense" href="/">
         <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
         Symptosense
       </a>
@@ -38,8 +37,8 @@
           </li>
         </ul>
         <ul class="mb-2 mb-lg-0">
-          <a class="btn btn-primary register" href="#" role="button">Registrasi</a>
-          <a class="btn btn-primary ms-3 login" href="#" role="button">Login</a>
+          <a class="btn btn-primary register" href="/register" role="button">Registrasi</a>
+          <a class="btn btn-primary ms-3 login" href="/login" role="button">Login</a>
         </ul>
       </div>
     </div>
