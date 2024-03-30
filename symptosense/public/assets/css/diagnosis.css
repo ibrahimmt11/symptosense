@@ -1,0 +1,81 @@
+* {
+    font-family: "Inter", sans-serif;
+}
+
+.navbar {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .register {
+    background-color: #1e56a0;
+    border-color: #1e56a0;
+}
+
+.navbar .login {
+    background-color: #163172;
+    border-color: #163172;
+}
+
+.navbar .navbar-nav {
+    margin-left: 75px;
+}
+
+.symptosense {
+    font-weight: bold;
+    color: #1e56a0;
+}
+
+.judul {
+    padding-top: 50px;
+    background-color: #163172;
+}
+
+.judul-content {
+    background-color: #163172;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    border-radius: 0 0 15px 15px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.info {
+    background-color: #e07979;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.info-text {
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.btn-group {
+    border: 1px solid #ccc;
+    width: 600px;
+    height: 60px;
+    margin-top: 20px;
+}
+
+.container .btn-tambah {
+    background-color: #65b741;
+    color: white;
+    margin-top: 20px;
+    width: 280px;
+    height: 60px;
+}
+
+.container .btn-hasil {
+    background-color: #1e56a0;
+    color: white;
+    margin-top: 20px;
+    width: 280px;
+    height: 60px;
+}

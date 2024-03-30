@@ -55,14 +55,13 @@
         <p class="text-white deskripsi">Bergabunglah dengan SymtoSense hari ini
           untuk meramalkan kesehatanmu bersama AI!</p>
         <div>
-          <button type="button" class="btn try-it">Try it out!</button>
+          <a href="/diagnosis" type="button" class="btn try-it">Try it out!</a>
         </div>
       </div>
       <div class="col-md-6 pb-5">
         <img src="assets/images/landing.png" class="img-fluid text-gambar">
       </div>
     </div>
-  </div>
   </div>
 
   <div class="row pt-5 mx-5">
