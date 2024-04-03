@@ -61,36 +61,46 @@
                     <a href="#" class="d-flex justify-content-center mb-4">
                         <img src="assets/images/batuk.png" alt="" width="">
                     </a>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="text-center mb-5">
                         <h3 class="fw-bold">Buat Akun</h3>
                         <p class="text-secondary">Silakan membuat akun jika tidak punya!!</p>
                     </div>
 
                     <div class="d-flex justify-content-center mb-4">
-                        <form class="container" style="max-width: 350px;">
+                    <form class="container" style="max-width: 350px;" method="post" action="{{ route('register') }}" enctype="multipart/form-data">
+                            @csrf
                             <div class="mb-3">
-                                <label class="form-label">Nama</label>
-                                <input type="text" class="form-control" placeholder="Masukkan nama anda">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="name" name="name" id="name" class="form-control" placeholder="Masukkan nama anda" require>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="text" class="form-control" placeholder="Masukkan email anda">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan email anda" require>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Password</label>
-                                <input type="text" class="form-control" placeholder="Masukkan password anda">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password anda" require>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Role</label>
-                                <select class="form-select" aria-label="Pilih role">
+                                <label for="role" class="form-label">Role</label>
+                                <select name="role" id="role" class="form-select" aria-label="Pilih role">
                                     <option selected disabled>Pilih role</option>
-                                    <option>Dokter</option>
-                                    <option>Pasien</option>
+                                    <option value="dokter">Dokter</option>
+                                    <option value="pasien">Pasien</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="fileUpload" class="form-label">Bukti</label>
-                                <input type="file" class="form-control" id="fileUpload" name="fileUpload" accept=".pdf, .jpg, .png" aria-describedby="fileHelp">
+                                <label for="bukti" class="form-label">Bukti</label>
+                                <input type="file" class="form-control" id="bukti" name="bukti" accept=".pdf, .jpg, .png" aria-describedby="fileHelp">
                                 <div id="fileHelp" class="form-text">Untuk dokter dapat mengirim STR untuk pasien dapat mingirim KTP</div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 signup">Sign Up</button>

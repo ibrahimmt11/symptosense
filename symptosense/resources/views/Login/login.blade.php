@@ -59,21 +59,22 @@
                             </p>
                         </div>
                         <div class="d-flex justify-content-center mb-4">
-                            <form class="container" style="max-width: 350px;">
+                            <form class="container" style="max-width: 350px;" method="post" action="{{ route('login') }}">
+                                @csrf
                                 <div class="mb-3">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="Masukkan email anda">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan email anda">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Password</label>
-                                    <input type="password" class="form-control" placeholder="Masukkan password anda">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password anda">
                                 </div>
                                 <small class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label">Remember me</label>
                                     <a href="#" class="forgot-password">Forgot Password?</a>
                                 </small>
-                                <button type="submit" class="btn btn-primary w-100 signup">Sign Ip</button>
+                                <button type="submit" class="btn btn-primary w-100 signup">Sign In</button>
                             </form>
                         </div>
                         <div class="text-center mb-5">
