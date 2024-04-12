@@ -1,0 +1,148 @@
+* {
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: #eee;
+}
+
+.sidebar-link {
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 12px;
+    font-weight: 700;
+}
+
+.sidebar-link i {
+    margin-right: 10px;
+}
+
+#side_nav {
+    background: white;
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s;
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.content .navbar {
+    background-color: #163172;
+}
+
+.sidebar li a:hover {
+    color: white;
+    background-color: #163172;
+    border-radius: 8px;
+}
+
+.bottom-nav {
+    margin-top: 200px;
+}
+
+.sidebar li a {
+    color: #163172;
+}
+
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    padding: 10px;
+}
+
+/* Tambahkan CSS untuk mengatur gaya profil */
+.profile-pic {
+    width: 40px; /* Atur lebar gambar sesuai kebutuhan */
+    height: 40px; /* Atur tinggi gambar sesuai kebutuhan */
+    border-radius: 50%; /* Membuat gambar bulat */
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.content {
+    margin-left: 250px;
+    flex: 1;
+    overflow-x: hidden;
+}
+
+@media (max-width: 767px) {
+    #side_nav {
+        margin-left: -250px;
+        position: absolute;
+        min-height: 100vh;
+        z-index: 1;
+    }
+    #side_nav.active {
+        margin-left: 0;
+    }
+}
+
+.content-box {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    background-color: white;
+    margin-left: 80px;
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content-box img {
+    max-width: 50px;
+    height: auto;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 14px;
+}
+
+#search {
+    height: 50px;
+    margin-right: 14px;
+    margin-left: 14px;
+}
+
+.table-box {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 75px;
+    margin-right: 60px;
+}
+
+.judul-content {
+    background-color: #163172;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.container .table-bordered {
+    border-color: #e8ecff;
+}
+
+.container .btn-done {
+    background-color: #65b741;
+    color: white;
+}
+
+.container .btn-meet {
+    background-color: #163172;
+    color: white;
+}

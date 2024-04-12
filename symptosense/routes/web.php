@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardPController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
@@ -12,3 +13,4 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/diagnosis', [DiagnosisController::class, 'diagnosis']);
+Route::get('/dashboardP', [DashboardPController::class, 'dashboardP']);
