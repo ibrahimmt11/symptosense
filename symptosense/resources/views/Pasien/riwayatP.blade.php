@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-    <link rel="stylesheet" href="assets/css/dashboardP.css">
+    <link rel="stylesheet" href="assets/css/riwayatP.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <title>Dashboard</title>
+    <title>Riwayat</title>
 </head>
 
 <body style="background-color: #D6E4F0;">
@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li class="">
-                    <a href="/riwayatP" class="d-flex align-items-center sidebar-link py-3">
+                    <a href="riwayatP" class="d-flex align-items-center sidebar-link py-3">
                         <i class="fs-2 lni lni-spinner-arrow"></i>
                         <span class="fs-6 ms-2 d-none d-sm-inline">Riwayat</span>
                     </a>
@@ -75,45 +75,22 @@
                 </div>
             </nav>
 
-
-            <div class="row gl-2">
-                <div class="dashboard-content px-3 pt-4 w-100 d-flex">
-                    <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/Konsul.png" alt="Gambar" class="img-fluid me-3">
-                        <div class="text-content">
-                            <h2 class="title">Total Konsultasi</h2>
-                            <h2>10x</h2>
-                            <p class="description">5 Macam dokter</p>
-                        </div>
-                    </div>
-                    <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/diagnosis.png" alt="Gambar" class="img-fluid me-3">
-                        <div class="text-content">
-                            <h2 class="title">Total Diagnosis</h2>
-                            <h2>10x</h2>
-                            <p class="description">10 Macam jenis penyakit</p>
-                        </div>
-                    </div>
-                    <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/diagnosis.png" alt="Gambar" class="img-fluid me-3">
-                        <div class="text-content">
-                            <h2 class="title">Menunggu Verifikasi</h2>
-                            <h2 class="fs-5s">2 Diagnosis</h2>
-                            <p class="description">2 data menunggu verifikasi dokter</p>
-                        </div>
-                    </div>
+            <div class="container mt-5 mb-4">
+                <div class="p-4 table-box d-flex align-item-center judul">
+                    <i class="fs-2 lni lni-support"></i>
+                    <span class="">Konsultasi</span>
                 </div>
             </div>
 
-            <div class="container mt-4 mb-5">
+            <div class="container mt-5 mb-5">
                 <div class="p-3 table-box">
                     <form class="d-flex" role="search" id="search">
                         <input class="form-control me-2" type="search" placeholder="Search History">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <div class="container mt-3">
-                        <div class="p-3 judul-content">
-                            <h5 class="mt-2 mb-2">History Diagnosis Yang sudah di confirm dan siap konsultasi</h5>
+                        <div class="p-3 judul-content-table">
+                            <h5 class="mt-2 mb-2">History konsultasi</h5>
                         </div>
                     </div>
                     <div class="container">
@@ -121,43 +98,21 @@
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Dokter</th>
-                                    <th scope="col">ID Diagnosis</th>
-                                    <th scope="col">Hasil Diagnosis AI</th>
-                                    <th scope="col">Hasil Konsultasi</th>
-                                    <th scope="col">Status</th>
-                                </tr>
+                                    <th scope="col"></th>
+
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Jaydi Kerta</td>
-                                    <td>D1210301</td>
-                                    <td>@Diagnosis_AI.pdf</td>
-                                    <td>Hasil.pdf</td>
-                                    <td>
-                                        <button type="button" class="btn btn-done">Done</button>
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td>Kerta Jasa</td>
-                                    <td>D1210302</td>
-                                    <td>@Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
-                                    <td>Jaydi Jasa</td>
-                                    <td>D1210303</td>
-                                    <td>@Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
-                                    </td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>

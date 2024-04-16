@@ -54,11 +54,10 @@ body {
     padding: 10px;
 }
 
-/* Tambahkan CSS untuk mengatur gaya profil */
 .profile-pic {
-    width: 40px; /* Atur lebar gambar sesuai kebutuhan */
-    height: 40px; /* Atur tinggi gambar sesuai kebutuhan */
-    border-radius: 50%; /* Membuat gambar bulat */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -126,11 +125,22 @@ body {
     margin-right: 60px;
 }
 
-.judul-content {
+.judul-content-diagnosis {
     background-color: #163172;
     color: white;
     border-radius: 15px 15px 0 0;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 75px;
+    margin-right: 60px;
+}
+
+.judul-content-table {
+    background-color: #163172;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 60px;
+    margin-right: 200px;
 }
 
 .container .table-bordered {
@@ -145,4 +155,42 @@ body {
 .container .btn-meet {
     background-color: #163172;
     color: white;
+}
+
+.container .judul {
+    display: flex;
+    align-items: center;
+}
+
+.container .judul i {
+    margin-right: 8px;
+    color: #163172;
+}
+
+.container .judul span {
+    color: #163172;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.information {
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 60px;
+    margin-right: 200px;
+}
+
+.profil {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: -100px;
+    margin-right: 50px;
+}
+
+.container .btn {
+    background-color: #163172;
+    color: white;
+    width: 150px;
 }

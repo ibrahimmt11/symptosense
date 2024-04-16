@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-    <link rel="stylesheet" href="assets/css/dashboardP.css">
+    <link rel="stylesheet" href="assets/css/diagnosisP.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <title>Dashboard</title>
+    <title>Diagnosis</title>
 </head>
 
 <body style="background-color: #D6E4F0;">
@@ -75,45 +75,77 @@
                 </div>
             </nav>
 
+            <div class="container mt-5 mb-4">
+                <div class="p-4 table-box d-flex align-item-center judul">
+                    <i class="fs-2 lni lni-clipboard"></i>
+                    <span class="">Diagnosis</span>
+                </div>
+            </div>
 
-            <div class="row gl-2">
-                <div class="dashboard-content px-3 pt-4 w-100 d-flex">
-                    <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/Konsul.png" alt="Gambar" class="img-fluid me-3">
-                        <div class="text-content">
-                            <h2 class="title">Total Konsultasi</h2>
-                            <h2>10x</h2>
-                            <p class="description">5 Macam dokter</p>
-                        </div>
+            <div class="container">
+                <div class="p-3 judul-content-diagnosis">
+                    <h5 class="mt-2 mb-2">Check Diagnosis</h5>
+                </div>
+                <div class="p-3 content-diagnosis">
+                    <div class="info">
+                        <p class="info-text">Isi gejala yang anda alami!!</p>
                     </div>
-                    <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/diagnosis.png" alt="Gambar" class="img-fluid me-3">
-                        <div class="text-content">
-                            <h2 class="title">Total Diagnosis</h2>
-                            <h2>10x</h2>
-                            <p class="description">10 Macam jenis penyakit</p>
-                        </div>
-                    </div>
-                    <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/diagnosis.png" alt="Gambar" class="img-fluid me-3">
-                        <div class="text-content">
-                            <h2 class="title">Menunggu Verifikasi</h2>
-                            <h2 class="fs-5s">2 Diagnosis</h2>
-                            <p class="description">2 data menunggu verifikasi dokter</p>
-                        </div>
+                    <div class="container text-center">
+                        <form action="">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <select name="" id="" class="form-select">
+                                        <option selected disabled value="">Pilih gejala anda</option>
+                                        <option value="b">gejala 1</option>
+                                        <option value="c">gejala 2</option>
+                                        <option value="d">gejala 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select name="" id="" class="form-select">
+                                        <option selected disabled value="">Pilih gejala anda</option>
+                                        <option value="b">gejala 1</option>
+                                        <option value="c">gejala 2</option>
+                                        <option value="d">gejala 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select name="" id="" class="form-select">
+                                        <option selected disabled value="">Pilih gejala anda</option>
+                                        <option value="b">gejala 1</option>
+                                        <option value="c">gejala 2</option>
+                                        <option value="d">gejala 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-tambah">
+                                                <i class="fas fa-plus"></i> Tambah Gejala
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-hasil">
+                                                <i class="fas fa-eye"></i> Lihat Hasil Gejala
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <div class="container mt-4 mb-5">
+            <div class="container mt-5 mb-5">
                 <div class="p-3 table-box">
                     <form class="d-flex" role="search" id="search">
                         <input class="form-control me-2" type="search" placeholder="Search History">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <div class="container mt-3">
-                        <div class="p-3 judul-content">
-                            <h5 class="mt-2 mb-2">History Diagnosis Yang sudah di confirm dan siap konsultasi</h5>
+                        <div class="p-3 judul-content-table">
+                            <h5 class="mt-2 mb-2">History Diagnosis</h5>
                         </div>
                     </div>
                     <div class="container">
@@ -124,7 +156,7 @@
                                     <th scope="col">Dokter</th>
                                     <th scope="col">ID Diagnosis</th>
                                     <th scope="col">Hasil Diagnosis AI</th>
-                                    <th scope="col">Hasil Konsultasi</th>
+                                    <th scope="col">Diagnosis Dokter</th>
                                     <th scope="col">Status</th>
                                 </tr>
                             </thead>
@@ -133,30 +165,30 @@
                                     <th scope="row">1</th>
                                     <td>Jaydi Kerta</td>
                                     <td>D1210301</td>
-                                    <td>@Diagnosis_AI.pdf</td>
-                                    <td>Hasil.pdf</td>
+                                    <td>Diagnosis_AI.pdf</td>
+                                    <td>Hasil_Dokter.pdf</td>
                                     <td>
-                                        <button type="button" class="btn btn-done">Done</button>
+                                        <button type="button" class="btn btn-done">Verified</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Kerta Jasa</td>
                                     <td>D1210302</td>
-                                    <td>@Diagnosis_AI.pdf</td>
+                                    <td>Diagnosis_AI.pdf</td>
                                     <td>-</td>
                                     <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
+                                        <button type="button" class="btn btn-meet">Wait</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Jaydi Jasa</td>
                                     <td>D1210303</td>
-                                    <td>@Diagnosis_AI.pdf</td>
+                                    <td>Diagnosis_AI.pdf</td>
                                     <td>-</td>
                                     <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
+                                        <button type="button" class="btn btn-meet">Wait</button>
                                     </td>
                                 </tr>
                             </tbody>
