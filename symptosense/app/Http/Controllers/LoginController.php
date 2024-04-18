@@ -20,15 +20,29 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // kasih middleware | dokter or pasien or admin
+
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->intended('/');
+            if (Auth::user()->role == 'pasien') {
+                return redirect()->route('dashboardP'); // Redirect to the patient dashboard
+            } elseif (Auth::user()->role == 'dokter') {
+                return redirect()->route('dashboardD'); // Redirect to the doctor dashboard
+            }
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Log the user out
+
+        $request->session()->invalidate(); // Invalidate the session
+
+        $request->session()->regenerateToken(); // Regenerate CSRF token
+
+        return redirect()->route('login')->with('success', 'You have been logged out.'); 
     }
 }

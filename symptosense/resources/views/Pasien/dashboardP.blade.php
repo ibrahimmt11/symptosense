@@ -51,8 +51,12 @@
             <ul class="list-unstyled px-2 bottom-nav">
                 <li class=""><a href="/pengaturanP" class="d-flex align-items-center sidebar-link py-3"><i class="fs-2 lni lni-cog"></i>
                         <span class="fs-6 ms-2 d-none d-sm-inline">Pengaturan</span></a></li>
-                <li class=""><a href="/login" class="d-flex align-items-center sidebar-link py-3"><i class="fs-2 lni lni-exit"></i>
-                        <span class="fs-6 ms-2 d-none d-sm-inline">Exit</span></a></li>
+                        <li class="">
+                            <a href="{{ route('logout') }}" class="d-flex align-items-center sidebar-link py-3">
+                                <i class="fs-2 lni lni-exit"></i>
+                                <span class="fs-6 ms-2 d-none d-sm-inline">Logout</span>
+                            </a>
+                        </li>
             </ul>
         </div>
         <div class="content">

@@ -10,4 +10,9 @@ class DashboardPController extends Controller
     {
         return view('Pasien/dashboardP');
     }
+
+    public function dashboardD()
+    {
+        return view('Dokter/dashboardD');
+    }
 }

@@ -20,6 +20,20 @@ Route::get('/diagnosis', [DiagnosisController::class, 'diagnosis']);
 
 Route::get('/diagnosisP', [DiagnosisPController::class, 'diagnosisP']);
 Route::get('/konsultasiP', [KonsultasiPController::class, 'konsultasiP']);
-Route::get('/dashboardP', [DashboardPController::class, 'dashboardP']);
+
+Route::get('/dashboardP', [DashboardPController::class, 'dashboardP'])
+    ->name('dashboardP')
+    ->middleware('auth', 'pasien'); 
+
+Route::get('/dashboardD', [DashboardPController::class, 'dashboardD'])
+    ->name('dashboardD')
+    ->middleware('auth', 'dokter'); 
+    
+
 Route::get('/riwayatP', [RiwayatPController::class, 'riwayatP']);
 Route::get('/pengaturanP', [PengatruanPController::class, 'pengaturanP']);
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+
