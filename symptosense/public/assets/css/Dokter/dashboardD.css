@@ -101,7 +101,7 @@ body {
     margin-left: -100px;
     margin-right: 75px;
     box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);
-    height: 500px;
+    height: auto;
 }
 
 .content-box img {

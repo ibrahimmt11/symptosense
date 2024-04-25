@@ -110,23 +110,57 @@
                         <div class="d-flex align-items-center antrian">
                             <div class="text-content">
                                 <h2 class="p-3 title">Antrian Meet</h2>
-                                <div class="list-group list-group-flush">
-                                    <a href="#" class="list-group-item list-group-item-action">The current link item</a>
-                                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                        <img src="assets/images/pasien.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                        <div>
+                                            <span class="fw-bold">Fadhil M</span><br>
+                                            <span>Pasien</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                        <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                        <div>
+                                            <span class="fw-bold">Rasyit D</span><br>
+                                            <span>Pasien</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                        <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                        <div>
+                                            <span class="fw-bold">Heru F</span><br>
+                                            <span>Pasien</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                        <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                        <div>
+                                            <span class="fw-bold">Qijaw S</span><br>
+                                            <span>Pasien</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                        <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                        <div>
+                                            <span class="fw-bold">Kebab T</span><br>
+                                            <span>Pasien</span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
-
-
-
-
-
         </div>
+
+
+
+
+
+    </div>
     </div>
 
 
