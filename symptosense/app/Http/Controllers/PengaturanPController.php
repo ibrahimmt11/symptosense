@@ -14,7 +14,7 @@ class PengaturanPController extends Controller
      */
     public function index()
     {
-        //
+        return view('Pasien.pengaturanP');
     }
 
     /**
@@ -32,24 +32,7 @@ class PengaturanPController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user(); // Get the currently authenticated user
-        $pasien = pasien::where('user_id', $user->id)->first(); // Find the patient record linked to the user
-        
 
-        if ($request->isMethod('post')) {
-            // Hanya jalankan logika update jika ini adalah request POST
-            $pasien->user_id = $user->id;
-            $pasien->nama_lengkap = $request->input('nama_lengkap');
-            $pasien->tgl_lahir = $request->input('tanggalLahir');
-            $pasien->jenis_kelamin = $request->input('jenisKelamin');
-            $pasien->no_telp = $request->input('noTelp');
-            $pasien->email = $request->input('email');
-            $pasien->alamat = $request->input('alamat');
-            $pasien->tinggi_badan = $request->input('tinggiBadan');
-            $pasien->berat_badan = $request->input('beratBadan');
-
-            $pasien->save();
-        }
     }
 
     /**
@@ -57,7 +40,7 @@ class PengaturanPController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -65,8 +48,7 @@ class PengaturanPController extends Controller
      */
     public function edit(string $id)
     {
-        $pasien = Pasien::find($id);
-        return view('Pasien.pengaturanP', ['pasien' => $pasien]);
+        return view('Pasien.pengaturanP');
     }
 
     /**

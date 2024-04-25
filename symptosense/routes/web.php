@@ -8,7 +8,7 @@ use App\Http\Controllers\KonsultasiDController;
 use App\Http\Controllers\KonsultasiPController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PengatruanPController;
+use App\Http\Controllers\PengaturanPController;
 use App\Http\Controllers\PengaturanDController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RiwayatPController;
@@ -41,6 +41,6 @@ Route::get('/dashboardD', [DashboardPController::class, 'dashboardD'])
 
 
 Route::get('/riwayatP', [RiwayatPController::class, 'riwayatP']);
-Route::get('/pengaturanP', [PengatruanPController::class, 'pengaturanP']);
+Route::get('/pengaturanP', [PengaturanPController::class, 'index']);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
