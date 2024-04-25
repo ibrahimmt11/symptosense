@@ -69,6 +69,11 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
+        'pasien' => [  // Make sure this is correctly set up if you're using a custom guard for 'pasien'
+            'driver' => 'eloquent',
+            'model' => App\Models\pasien::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
