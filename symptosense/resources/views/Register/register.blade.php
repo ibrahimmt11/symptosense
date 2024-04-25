@@ -49,8 +49,8 @@
         <div class="col-lg-6 position-relative d-none d-lg-block bg-left">
             <div class="container text-center text-white">
                 <img src="assets/images/robot.png" alt="" class="img-fluid gambar">
-                <h1 class="mt-5">dasddwda</h1>
-                <p class="mt-3">Welcome to Symptosense</p>
+                <h1 class="mt-5">Welcome to Symptosense</h1>
+                <p class="mt-3">Your Health Companion</p>
             </div>
         </div>
 
@@ -62,13 +62,13 @@
                         <img src="assets/images/batuk.png" alt="" width="">
                     </a>
                     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                     @endif
                     <div class="text-center mb-5">
                         <h3 class="fw-bold">Buat Akun</h3>
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center mb-4">
-                    <form class="container" style="max-width: 350px;" method="post" action="{{ route('register') }}" enctype="multipart/form-data">
+                        <form class="container" style="max-width: 350px;" method="post" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
