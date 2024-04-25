@@ -23,6 +23,7 @@ class LoginController extends Controller
 
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $userName = Auth::user()->name;
             if (Auth::user()->role == 'pasien') {
                 return redirect()->route('dashboardP'); // Redirect to the patient dashboard
             } elseif (Auth::user()->role == 'dokter') {
@@ -34,6 +35,7 @@ class LoginController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+    
 
     public function logout(Request $request)
     {

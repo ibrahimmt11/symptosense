@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User; 
 
 class DashboardPController extends Controller
 {
     public function dashboardP()
     {
-        return view('Pasien/dashboardP');
+        $data = User::all();
+        return view('Pasien/dashboardP', compact('data'));
     }
 
     public function dashboardD()
