@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id('id_pasien');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('user_nama')->nullable();
-            $table->foreign('user_nama')->references('name')->on('users'); // Assuming 'name' is now unique
+            $table->string('nama_lengkap')->nullable();
             $table->char('jenis_kelamin', 1)->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->string('no_telp')->nullable();

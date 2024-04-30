@@ -14,7 +14,12 @@ class PengaturanPController extends Controller
      */
     public function index()
     {
-        return view('Pasien.pengaturanP');
+        $data['pasien'] = Pasien::select('pasien.*','users.name as username')
+                                    ->leftJoin('users','users.id','=','pasien.user_id')
+                                    ->where('user_id',auth()->user()->id)
+                                    ->first();
+        // dd($data);  
+        return view('Pasien.pengaturanP',$data);
     }
 
     /**
@@ -54,32 +59,42 @@ class PengaturanPController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'email' => 'required|email',
-            'tgl_lahir' => 'required',
-            'jenis_kelamin'  => 'required',
-            'no_telp' => 'required',
+            'tanggalLahir' => 'required',
+            'jenisKelamin'  => 'required',
+            'noTelp' => 'required',
             'alamat'  => 'required',
-            'berat_badan'  => 'required',
-            'tinggi_badan' => 'required',
+            'beratBadan'  => 'required',
+            'tinggiBadan' => 'required',
         ]);
 
         // Find the Pasien record
-        $pasien = Pasien::findOrFail($id);
-
-        // Update the Pasien record with validated data
-        $pasien->fill($validatedData);
+        $pasien = Pasien::where('id_pasien',$request->id_pasien)->first();
+        $pasien->nama_lengkap = $request->nama;
+        $pasien->jenis_kelamin = $request->jenisKelamin;
+        $pasien->tgl_lahir = $request->tanggalLahir; 
+        $pasien->no_telp = $request->noTelp;
+        $pasien->email = $request->email;
+        $pasien->alamat = $request->alamat; 
+        $pasien->tinggi_badan = $request->tinggiBadan;
+        $pasien->berat_badan = $request->beratBadan;
         $pasien->save();
 
-        // Flash a success message
-        flash('Data updated')->success();
-
+        $user = User::where('id',$request->id_user)->first();
+        $user->name = $request->nama;
+        $user->email = $request->email;
+        if($request->password != null){
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+    
         // Redirect back to the edit page
-        return redirect()->route('edit.pengaturanP', $id);
+        return redirect(url('pengaturanP'))->with('message',"Data Updated successfully");;
     }
 
     /**

@@ -42,5 +42,6 @@ Route::get('/dashboardD', [DashboardPController::class, 'dashboardD'])
 
 Route::get('/riwayatP', [RiwayatPController::class, 'riwayatP']);
 Route::get('/pengaturanP', [PengaturanPController::class, 'index']);
+Route::post('/update-profile-pasien', [PengaturanPController::class, 'update']);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
