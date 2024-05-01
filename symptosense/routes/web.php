@@ -23,7 +23,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/diagnosis', [DiagnosisController::class, 'diagnosis']);
 
 Route::get('/diagnosisP', [DiagnosisPController::class, 'diagnosisP']);
-Route::get('/konsultasiP', [KonsultasiPController::class, 'konsultasiP']);
+Route::get('/konsultasiP', [KonsultasiPController::class, 'konsultasiP'])->middleware('auth');
 
 Route::get('/konsultasiD', [KonsultasiDController::class, 'konsultasiD']);
 Route::get('/verifikasiDiagnosis', [VerifikasiDiagnosisController::class, 'verifikasiDiagnosis']);
