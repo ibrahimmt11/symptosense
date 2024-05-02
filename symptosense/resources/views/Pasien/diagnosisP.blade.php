@@ -93,30 +93,30 @@
                         <p class="info-text">Isi gejala yang anda alami!!</p>
                     </div>
                     <div class="container text-center">
-                        <form action="">
+                        <form action="http://localhost:5000/submit" method="post">
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <select name="" id="" class="form-select">
+                                    <select name="gejala1" id="gejala1" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
-                                        <option value="b">gejala 1</option>
-                                        <option value="c">gejala 2</option>
-                                        <option value="d">gejala 3</option>
+                                        @foreach($keluhan as $item)
+                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select name="" id="" class="form-select">
+                                    <select name="gejala2" id="gejala2" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
-                                        <option value="b">gejala 1</option>
-                                        <option value="c">gejala 2</option>
-                                        <option value="d">gejala 3</option>
+                                        @foreach($keluhan as $item)
+                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select name="" id="" class="form-select">
+                                    <select name="gejala3" id="gejala3" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
-                                        <option value="b">gejala 1</option>
-                                        <option value="c">gejala 2</option>
-                                        <option value="d">gejala 3</option>
+                                        @foreach($keluhan as $item)
+                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-6">
@@ -127,7 +127,7 @@
                                             </button>
                                         </div>
                                         <div class="col-6">
-                                            <button type="button" class="btn btn-hasil">
+                                            <button type="submit" class="btn btn-hasil">
                                                 <i class="fas fa-eye"></i> Lihat Hasil Gejala
                                             </button>
                                         </div>
@@ -138,7 +138,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="container mt-5 mb-5">
                 <div class="p-3 table-box">
                     <form class="d-flex" role="search" id="search">
