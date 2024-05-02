@@ -90,7 +90,7 @@
                     </form>
                     <div class="container mt-3">
                         <div class="p-3 judul-content-table">
-                            <h5 class="mt-2 mb-2">History Diagnosis Yang sudah di confirm dan siap konsultasi</h5>
+                            <h5 class="mt-3 mb-2">History Diagnosis Yang sudah di confirm dan siap konsultasi</h5>
                         </div>
                     </div>
                     <div class="container">
@@ -123,7 +123,7 @@
                                     <td>Diagnosis_AI.pdf</td>
                                     <td>-</td>
                                     <td>
-                                        <button type="button" class="btn btn-verif" onclick="showPopup('Kira', 'D1210302', 'Diagnosis_AI.pdf')">Details</button>
+                                        <button type="button" class="btn btn-verif" data-bs-toggle="modal" data-bs-target="#detail">Details</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -132,31 +132,89 @@
                 </div>
             </div>
 
-            <!-- Popup Box -->
-            <div id="popupBox" style="display: none; background-color: rgba(0, 0, 0, 0.5); position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; justify-content: center; align-items: center;">
-                <div style="background-color: white; padding: 20px; border-radius: 10px; max-width: 80%;">
-                    <h3>Details</h3>
-                    <p id="popupContent"></p>
-                    <button onclick="hidePopup()">Close</button>
+            <!--Modal-->
+            <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container mb-5">
+                                <div class="information">
+                                    <form>
+                                        <div class="p-3 row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nama" style="font-weight: bold;">Nama pasien</label>
+                                                    <input type="text" class="form-control" id="nama" value="Kira" readonly>
+                                                </div>
+                                                <div class="form-group mt-3">
+                                                    <label for="" style="font-weight: bold;">Keluhan</label>
+                                                    <div class="complaint-list">
+                                                        <div class="list-group">
+                                                            <a href="#" class="list-group-item">Complaint 1</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+                                                            <a href="#" class="list-group-item">Complaint 2</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-3">
+                                                    <label for="" style="font-weight: bold;">Diagnosis (Jika tidak verifikasi)</label>
+                                                    <div class="mb-3">
+                                                        <input type="file" class="form-control" id="bukti" name="bukti" accept=".pdf, .jpg, .png" aria-describedby="fileHelp">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="" style="font-weight: bold;">ID Diagnosis</label>
+                                                    <input type="text" class="form-control" id="" value="D1210302" readonly>
+                                                </div>
+                                                <div class="form-group mt-3">
+                                                    <label for="" style="font-weight: bold;">Diagnosis AI</label>
+                                                    <div>
+                                                        <i class="lni lni-empty-file" style="font-size: 16px;">
+                                                            <span>AI_generated_diagnosis.PDF</span></i>
+                                                    </div>
+                                                    <div>
+                                                        <select name="" id="" class="form-select">
+                                                            <option value="b">Verify</option>
+                                                            <option value="c">No verify</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 text-end mt-3">
+                                                <button type="submit" class="btn btn-submit">Submit</button> <!-- Change button color as needed -->
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
+
+
+    </div>
     </div>
 
-    <script>
-        function showPopup(patientName, diagnosisID, diagnosisResult) {
-            var content = "Patient: " + patientName + "<br>";
-            content += "Diagnosis ID: " + diagnosisID + "<br>";
-            content += "Diagnosis Result: " + diagnosisResult;
-            document.getElementById('popupContent').innerHTML = content;
-            document.getElementById('popupBox').style.display = 'flex';
-        }
-
-        function hidePopup() {
-            document.getElementById('popupBox').style.display = 'none';
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="assets/js/sidenav.js"></script>
 </body>

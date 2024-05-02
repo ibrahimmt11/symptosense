@@ -41,7 +41,7 @@ body {
 }
 
 .bottom-nav {
-    margin-top: 200px;
+    margin-top: 350px;
 }
 
 .sidebar li a {
@@ -54,10 +54,11 @@ body {
     padding: 10px;
 }
 
+/* Tambahkan CSS untuk mengatur gaya profil */
 .profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 40px; /* Atur lebar gambar sesuai kebutuhan */
+    height: 40px; /* Atur tinggi gambar sesuai kebutuhan */
+    border-radius: 50%; /* Membuat gambar bulat */
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -91,6 +92,18 @@ body {
     box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
+.antrian {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    background-color: white;
+    margin-left: -100px;
+    margin-right: 75px;
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);
+    height: auto;
+}
+
 .content-box img {
     max-width: 50px;
     height: auto;
@@ -118,23 +131,18 @@ body {
 }
 
 .table-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    margin-left: 75px;
-    margin-right: 60px;
+    margin-left: -70px;
+    margin-right: 180px;
 }
 
-.judul-content-diagnosis {
-    background-color: #163172;
-    color: white;
-    border-radius: 15px 15px 0 0;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    margin-left: 75px;
-    margin-right: 60px;
-}
-
-.judul-content-table {
+.judul-content {
     background-color: #163172;
     color: white;
     border-radius: 15px 15px 0 0;
@@ -150,84 +158,7 @@ body {
     color: white;
 }
 
-.container .btn-verif {
-    background-color: #ff4d00;
-    color: white;
-}
-
-.container .judul {
-    display: flex;
-    align-items: center;
-}
-
-.container .judul i {
-    margin-right: 8px;
-    color: #163172;
-}
-
-.container .judul span {
-    color: #163172;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.content-diagnosis {
-    border-radius: 0 0 15px 15px;
-    border: 1px solid #ccc;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    background-color: white;
-    margin-left: 75px;
-    margin-right: 60px;
-}
-
-.info {
-    background-color: #e07979;
-    color: white;
-    font-size: 20px;
-    padding: 10px;
-    border-radius: 15px;
-    margin-top: 10px;
-}
-
-.info-text {
-    margin-top: 15px;
-    margin-left: 20px;
-}
-
-.form-select {
-    border: 1px solid #ccc;
-    width: 10px;
-    height: 40px;
-    margin-top: 20px;
-}
-
-.container .btn-tambah {
-    background-color: #65b741;
-    color: white;
-    margin-top: 20px;
-    width: 240px;
-    height: 60px;
-}
-
-.modal .btn-submit {
+.container .btn-meet {
     background-color: #163172;
     color: white;
-    width: 150px;
-    height: 40px;
-}
-
-.modal-header {
-    background-color: #163172;
-    color: white;
-    border-radius: 15px 15px 0 0;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.modal {
-    width: 500px;
-}
-
-.complaint-list {
-    max-height: 150px; /* Adjust height as needed */
-    overflow-y: auto;
 }

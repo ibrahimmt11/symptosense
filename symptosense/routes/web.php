@@ -3,11 +3,13 @@
 use App\Http\Controllers\DashboardPController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\DiagnosisPController;
+use App\Http\Controllers\KelolaAkunController;
 use App\Http\Controllers\KeluhanController;
 use App\Http\Controllers\KonsultasiDController;
 use App\Http\Controllers\KonsultasiPController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PengaturanAController;
 use App\Http\Controllers\PengaturanPController;
 use App\Http\Controllers\PengaturanDController;
 use App\Http\Controllers\RegisterController;
@@ -30,6 +32,10 @@ Route::get('/verifikasiDiagnosis', [VerifikasiDiagnosisController::class, 'verif
 Route::get('/keluhan', [KeluhanController::class, 'keluhan']);
 Route::get('/pengaturanD', [PengaturanDController::class, 'pengaturanD']);
 
+Route::get('/dashboardA', [DashboardPController::class, 'dashboardA']);
+Route::get('/pengaturanA', [PengaturanAController::class, 'pengaturanA']);
+Route::get('/kelolaAkun', [KelolaAkunController::class, 'kelolaAkun']);
+
 Route::get('/dashboardP', [DashboardPController::class, 'dashboardP'])
     ->name('dashboardP')
     ->middleware('auth', 'pasien');
@@ -38,6 +44,7 @@ Route::get('/dashboardP', [DashboardPController::class, 'dashboardP'])
 Route::get('/dashboardD', [DashboardPController::class, 'dashboardD'])
     ->name('dashboardD')
     ->middleware('auth', 'dokter');
+
 
 
 Route::get('/riwayatP', [RiwayatPController::class, 'riwayatP']);

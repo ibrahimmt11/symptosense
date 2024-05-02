@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('nama_lengkap')->nullable();
-            $table->char('jenis_kelamin', 1)->nullable();
+            $table->string('jenis_kelamin')->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->string('no_telp')->nullable();
             $table->string('email')->unique();
@@ -35,5 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('pasien');
     }
-    
 };

@@ -41,7 +41,7 @@ body {
 }
 
 .bottom-nav {
-    margin-top: 200px;
+    margin-top: 350px;
 }
 
 .sidebar li a {
@@ -139,6 +139,8 @@ body {
     color: white;
     border-radius: 15px 15px 0 0;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 60px;
+    margin-right: 200px;
 }
 
 .container .table-bordered {
@@ -150,8 +152,8 @@ body {
     color: white;
 }
 
-.container .btn-verif {
-    background-color: #ff4d00;
+.container .btn-meet {
+    background-color: #163172;
     color: white;
 }
 
@@ -171,63 +173,24 @@ body {
     font-weight: bold;
 }
 
-.content-diagnosis {
-    border-radius: 0 0 15px 15px;
-    border: 1px solid #ccc;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+.information {
     background-color: white;
-    margin-left: 75px;
-    margin-right: 60px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 60px;
+    margin-right: 200px;
 }
 
-.info {
-    background-color: #e07979;
-    color: white;
-    font-size: 20px;
-    padding: 10px;
+.profil {
+    background-color: white;
     border-radius: 15px;
-    margin-top: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin-left: -100px;
+    margin-right: 50px;
 }
 
-.info-text {
-    margin-top: 15px;
-    margin-left: 20px;
-}
-
-.form-select {
-    border: 1px solid #ccc;
-    width: 10px;
-    height: 40px;
-    margin-top: 20px;
-}
-
-.container .btn-tambah {
-    background-color: #65b741;
-    color: white;
-    margin-top: 20px;
-    width: 240px;
-    height: 60px;
-}
-
-.modal .btn-submit {
+.container .btn {
     background-color: #163172;
     color: white;
     width: 150px;
-    height: 40px;
-}
-
-.modal-header {
-    background-color: #163172;
-    color: white;
-    border-radius: 15px 15px 0 0;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.modal {
-    width: 500px;
-}
-
-.complaint-list {
-    max-height: 150px; /* Adjust height as needed */
-    overflow-y: auto;
 }

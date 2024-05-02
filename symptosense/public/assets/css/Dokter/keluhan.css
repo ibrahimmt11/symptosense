@@ -209,10 +209,27 @@ body {
     height: 60px;
 }
 
-.container .btn-hasil {
-    background-color: #1e56a0;
+.modal .btn-submit {
+    background-color: #163172;
     color: white;
-    margin-top: 20px;
-    width: 240px;
-    height: 60px;
+    width: 150px;
+    height: 40px;
+}
+.modal .btn-tolak {
+    background-color: #bd3220;
+    color: white;
+    width: 150px;
+    height: 40px;
+}
+
+.complaint-list {
+    max-height: 150px; /* Adjust height as needed */
+    overflow-y: auto;
+}
+
+.modal-header {
+    background-color: #163172;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
