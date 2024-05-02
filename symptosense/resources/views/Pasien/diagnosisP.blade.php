@@ -163,36 +163,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Jaydi Kerta</td>
-                                    <td>D1210301</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>Hasil_Dokter.pdf</td>
-                                    <td>
-                                        <button type="button" class="btn btn-done">Verified</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Kerta Jasa</td>
-                                    <td>D1210302</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet">Wait</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Jaydi Jasa</td>
-                                    <td>D1210303</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet">Wait</button>
-                                    </td>
-                                </tr>
+                                @forelse($diagnosisHistory as $history)
+                                    <tr>
+                                        <th scope="row">{{ $loop->index + 1 }}</th>
+                                        <td>{{ $history->nama_lengkap }}</td>
+                                        <td>{{ $history->id_diagnosis }}</td>
+                                        <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
+                                        <td>{{ $history->diagnosis_dokter }}</td>
+                                        <td>
+                                            <button type="button" class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
+                                                {{ $history->status }}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
