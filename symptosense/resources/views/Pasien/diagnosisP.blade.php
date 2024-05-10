@@ -95,11 +95,11 @@
                     <div class="container text-center">
                         <form action="http://localhost:5000/submit" method="post">
                             <div class="row g-2">
-                                <div class="col-6">
+                                <div class="col-6 gejala-dropdown">
                                     <select name="gejala1" id="gejala1" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
                                         @foreach($keluhan as $item)
-                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                                        <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -107,7 +107,7 @@
                                     <select name="gejala2" id="gejala2" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
                                         @foreach($keluhan as $item)
-                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                                        <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -115,11 +115,11 @@
                                     <select name="gejala3" id="gejala3" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
                                         @foreach($keluhan as $item)
-                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                                        <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 sec-btn">
                                     <div class="row">
                                         <div class="col-6">
                                             <button type="button" class="btn btn-tambah">
@@ -138,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="container mt-5 mb-5">
                 <div class="p-3 table-box">
                     <form class="d-flex" role="search" id="search">
@@ -164,22 +164,22 @@
                             </thead>
                             <tbody>
                                 @forelse($diagnosisHistory as $history)
-                                    <tr>
-                                        <th scope="row">{{ $loop->index + 1 }}</th>
-                                        <td>{{ $history->nama_lengkap }}</td>
-                                        <td>{{ $history->id_diagnosis }}</td>
-                                        <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
-                                        <td>{{ $history->diagnosis_dokter }}</td>
-                                        <td>
-                                            <button type="button" class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
-                                                {{ $history->status }}
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $history->nama_lengkap }}</td>
+                                    <td>{{ $history->id_diagnosis }}</td>
+                                    <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
+                                    <td>{{ $history->diagnosis_dokter }}</td>
+                                    <td>
+                                        <button type="button" class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
+                                            {{ $history->status }}
+                                        </button>
+                                    </td>
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -189,6 +189,38 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select tombol "Tambah Gejala"
+            const tambahGejalaBtn = document.querySelector('.btn-tambah');
+
+            // Tambahkan event listener untuk tombol "Tambah Gejala"
+            tambahGejalaBtn.addEventListener('click', function() {
+                // Dapatkan dropdown yang akan diduplikasi
+                const existingDropdown = document.querySelector('.gejala-dropdown');
+
+                // Duplikasi dropdown yang sudah ada
+                const newDropdown = existingDropdown.cloneNode(true);
+
+                // Kosongkan nilai dropdown baru
+                newDropdown.value = '';
+
+                // Dapatkan parent dari .sec-btn
+                const secBtnParent = document.querySelector('.sec-btn').parentNode;
+
+                // Sisipkan dropdown baru sebelum .sec-btn
+                secBtnParent.insertBefore(newDropdown, document.querySelector('.sec-btn'));
+            });
+        });
+    </script>
+
+
+
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="assets/js/sidenav.js"></script>
 </body>
