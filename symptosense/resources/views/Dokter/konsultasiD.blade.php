@@ -98,7 +98,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Dokter</th>
+                                    <th scope="col">Pasien</th>
                                     <th scope="col">ID Diagnosis</th>
                                     <th scope="col">Hasil Diagnosis AI</th>
                                     <th scope="col">Diagnosis Dokter</th>
@@ -106,36 +106,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Jaydi Kerta</td>
-                                    <td>D1210301</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>Hasil.pdf</td>
-                                    <td>
-                                        <button type="button" class="btn btn-done">Done</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Kerta Jasa</td>
-                                    <td>D1210302</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Jaydi Jasa</td>
-                                    <td>D1210303</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
-                                    </td>
-                                </tr>
+                                @if($consultations->isEmpty())
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                    </tr>
+                                @else
+                                    @foreach($consultations as $consultation)
+                                        <tr>
+                                            <th scope="row">{{ $loop->index + 1 }}</th>
+                                            <td>{{ $consultation->nama_lengkap }}</td>
+                                            <td>{{ $consultation->id_diagnosis }}</td>
+                                            <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
+                                            <td>{{ $consultation->diagnosis_dokter }}</td>
+                                            <td>
+                                                <button type="button" class="btn {{ $consultation->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
+                                                    {{ $consultation->status }}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

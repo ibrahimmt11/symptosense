@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\pasien;
+use App\Models\dokter;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -51,6 +52,19 @@ class RegisterController extends Controller
                 ]);
     
             $pasien->save();
+        }
+        else if ($request->input('role') === 'dokter') {
+            $dokter = new Dokter([
+                'user_id' => $user->id,
+                'nama_lengkap' => $request->input('name'),
+                'jenis_kelamin' => $request->input('jenis_kelamin') ?: null, 
+                'tgl_lahir' => $request->input('tgl_lahir') ?: null, 
+                'no_telp' => $request->input('no_telp') ?: null, 
+                'email' => $request->input('email'),
+                'alamat' => $request->input('alamat') ?: null, 
+                'bukti' => $request->file('bukti')->store('post-image', 'public'),
+                ]);
+            $dokter->save();
         }
 
 

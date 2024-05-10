@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('diagnosis', function (Blueprint $table) {
             $table->id('id_diagnosis'); // Primary key and auto-incrementing
+            $table->unsignedBigInteger('id_pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
             $table->string('nama_diagnosis');
             $table->text('hasil_diagnosis');
             $table->unsignedBigInteger('id_dokter');

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class pasien extends Model
+class dokter extends Model
 {
     use HasFactory;
-    protected $table = 'pasien';
-    protected $primaryKey = 'id_pasien';
+    protected $table = 'dokter';
+    protected $primaryKey = 'id_dokter';
 
     protected $fillable = [
         'user_id',
@@ -20,12 +20,6 @@ class pasien extends Model
         'no_telp',
         'email',
         'alamat',
-        'tinggi_badan',
-        'berat_badan',
-        'NIK',
+        'bukti_str',
     ];
-
-    public function User() {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
-    }
 }

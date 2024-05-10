@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('dokter', function (Blueprint $table) {
             $table->id('id_dokter'); 
-            $table->string('nama_lengkap');
-            $table->char('jenis_kelamin', 1); 
-            $table->date('tgl_lahir');
-            $table->string('no_telp');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('nama_lengkap')->nullable();
+            $table->string('jenis_kelamin')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->string('no_telp')->nullable();
             $table->string('email')->unique();
-            $table->text('alamat');
-            $table->string('bukti_str'); 
+            $table->text('alamat')->nullable();
+            $table->string('bukti_str')->nullable(); 
             $table->timestamps();
         });
     }
