@@ -46,9 +46,14 @@ Route::get('/dashboardD', [DashboardPController::class, 'dashboardD'])
     ->middleware('auth', 'dokter');
 
 
-
 Route::get('/riwayatP', [RiwayatPController::class, 'riwayatP']);
 Route::get('/pengaturanP', [PengaturanPController::class, 'index']);
 Route::post('/update-profile-pasien', [PengaturanPController::class, 'update']);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Define routes for creating and joining Jitsi Meet rooms
+Route::get('/meeting/create', [MeetingController::class, 'create'])->name('meeting.create');
+Route::get('/meeting/join/{roomName}', [MeetingController::class, 'join'])->name('meeting.join');
+
+
