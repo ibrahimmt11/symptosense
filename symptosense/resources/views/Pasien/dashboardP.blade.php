@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     <title>Dashboard</title>
 </head>
 
@@ -111,6 +110,9 @@
                 </div>
             </div>
 
+            <!-- Container for Jitsi Meet -->
+            <div id="jitsi-container"></div>
+
             <div class="container mt-4 mb-5">
                 <div class="p-3 table-box">
                     <form class="d-flex" role="search" id="search">
@@ -152,7 +154,8 @@
                                     <td>@Diagnosis_AI.pdf</td>
                                     <td>-</td>
                                     <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
+                                        <button type="button" class="btn btn-meet" onclick="openJitsiMeeting()">Meet</button>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,8 +176,18 @@
 
         </div>
     </div>
+    <script>
+        function openJitsiMeeting() {
+            const roomName = 'meeting_' + new Date().getTime(); // Example room name, generate as needed
+            const url = 'https://meet.jit.si/' + roomName;
+            window.open(url, '_blank');
+        }
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="assets/js/sidenav.js"></script>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <script src="{{ asset('js/jitsi.js') }}"></script>
 </body>
 
 </html>
