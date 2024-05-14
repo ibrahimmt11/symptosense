@@ -15,6 +15,7 @@ use App\Http\Controllers\PengaturanDController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RiwayatPController;
 use App\Http\Controllers\VerifikasiDiagnosisController;
+use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'landing']);
@@ -27,10 +28,13 @@ Route::get('/diagnosis', [DiagnosisController::class, 'diagnosis']);
 Route::get('/diagnosisP', [DiagnosisPController::class, 'diagnosisP']);
 Route::get('/konsultasiP', [KonsultasiPController::class, 'konsultasiP'])->middleware('auth');
 
-Route::get('/konsultasiD', [KonsultasiDController::class, 'konsultasiD']);
+Route::get('/konsultasiD', [KonsultasiDController::class, 'konsultasiD'])->middleware('auth');;
 Route::get('/verifikasiDiagnosis', [VerifikasiDiagnosisController::class, 'verifikasiDiagnosis']);
 Route::get('/keluhan', [KeluhanController::class, 'keluhan']);
-Route::get('/pengaturanD', [PengaturanDController::class, 'pengaturanD']);
+
+
+Route::get('/pengaturanD', [PengaturanDController::class, 'index']);
+Route::post('/update-profile-dokter', [PengaturanDController::class, 'update']);
 
 Route::get('/dashboardA', [DashboardPController::class, 'dashboardA']);
 Route::get('/pengaturanA', [PengaturanAController::class, 'pengaturanA']);
@@ -55,5 +59,9 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // Define routes for creating and joining Jitsi Meet rooms
 Route::get('/meeting/create', [MeetingController::class, 'create'])->name('meeting.create');
 Route::get('/meeting/join/{roomName}', [MeetingController::class, 'join'])->name('meeting.join');
+
+Route::get('/meetings/start/{id_diagnosis}', [MeetingController::class, 'startMeeting'])->name('meetings.start');
+Route::get('/meetings/join/{id_diagnosis}', [MeetingController::class, 'joinMeeting'])->name('meetings.join');
+
 
 

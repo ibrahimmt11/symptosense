@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth; // Make sure to import Auth
+use Illuminate\Support\Facades\Auth;
 
 class KonsultasiPController extends Controller
 {

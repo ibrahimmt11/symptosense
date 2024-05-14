@@ -69,8 +69,8 @@
                                     <i class="fs-5 lni lni-alarm"></i>
                                     <img src="assets/images/profile.png" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
                                     <div>
-                                        Asep
-                                        <br>Dokter
+                                        {{ Auth::user()->name }}
+                                        <br>Pasien
                                     </div>
                                 </a>
                             </li>

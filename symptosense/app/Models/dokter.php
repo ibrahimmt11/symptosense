@@ -22,4 +22,10 @@ class dokter extends Model
         'alamat',
         'bukti_str',
     ];
+
+    // In Dokter model
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id');  // Adjust foreign and local keys as appropriate
+    }
+
 }

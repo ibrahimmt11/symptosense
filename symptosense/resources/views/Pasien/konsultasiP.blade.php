@@ -121,9 +121,11 @@
                                             <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             <td>
-                                                <button type="button" class="btn {{ $consultation->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
-                                                    {{ $consultation->status }}
-                                                </button>
+                                                @if($consultation->status === 'scheduled' || $consultation->status === 'active')
+                                                    <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-success">Join Meeting</a>
+                                                @else
+                                                    <span class="badge badge-secondary">No Meeting Scheduled</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

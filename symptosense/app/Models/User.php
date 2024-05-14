@@ -24,6 +24,12 @@ class User extends Authenticatable
         'bukti',
     ];
 
+    // In User model
+    public function dokter() {
+        return $this->hasOne(Dokter::class, 'user_id', 'id');  // Adjust foreign and local keys as appropriate
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

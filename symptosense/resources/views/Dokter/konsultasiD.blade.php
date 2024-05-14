@@ -65,8 +65,8 @@
                                     <i class="fs-5 lni lni-alarm"></i>
                                     <img src="assets/images/profile.png" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
                                     <div>
-                                        Asep
-                                        <br>Dokter
+                                        {{ Auth::user()->name }}
+                                        <br>Pasien
                                     </div>
                                 </a>
                             </li>
@@ -108,7 +108,7 @@
                             <tbody>
                                 @if($consultations->isEmpty())
                                     <tr>
-                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                        <td colspan="6" class="btn btn-primary">Belum ada history diagnosis.</td>
                                     </tr>
                                 @else
                                     @foreach($consultations as $consultation)
@@ -119,9 +119,11 @@
                                             <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             <td>
-                                                <button type="button" class="btn {{ $consultation->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
-                                                    {{ $consultation->status }}
-                                                </button>
+                                                @if($consultation->status === 'scheduled' || $consultation->status === 'active')
+                                                    <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-success">Join Meeting</a>
+                                                @else
+                                                    <a href="{{ route('meetings.start', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-primary">Start Meeting</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
