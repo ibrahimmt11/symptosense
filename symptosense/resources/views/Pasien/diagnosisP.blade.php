@@ -94,7 +94,8 @@
                     </div>
                     <div class="container text-center">
                         <form action="http://localhost:5000/submit" method="post">
-                            <div class="row g-2">
+                            <div class="row g-2" id="gejalaContainer">
+                                <!-- Existing dropdown for the first symptom -->
                                 <div class="col-6 gejala-dropdown">
                                     <select name="gejala1" id="gejala1" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
@@ -103,7 +104,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-6">
+                                <!-- Additional dropdown for the second symptom -->
+                                <div class="col-6 gejala-dropdown">
                                     <select name="gejala2" id="gejala2" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
                                         @foreach($keluhan as $item)
@@ -111,7 +113,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-6">
+                                <!-- Additional dropdown for the third symptom -->
+                                <div class="col-6 gejala-dropdown">
                                     <select name="gejala3" id="gejala3" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
                                         @foreach($keluhan as $item)
@@ -119,19 +122,17 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-6 sec-btn">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button type="button" class="btn btn-tambah">
-                                                <i class="fas fa-plus"></i> Tambah Gejala
-                                            </button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button type="submit" class="btn btn-hasil">
-                                                <i class="fas fa-eye"></i> Lihat Hasil Gejala
-                                            </button>
-                                        </div>
-                                    </div>
+                            </div>                            
+                            <div class="row g-2 sec-btn">
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-tambah">
+                                        <i class="fas fa-plus"></i> Tambah Gejala
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-hasil">
+                                        <i class="fas fa-eye"></i> Lihat Hasil Gejala
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -189,38 +190,69 @@
 
         </div>
     </div>
-
+    <!-- Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Hasil Diagnosis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Content akan diisi oleh JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Select tombol "Tambah Gejala"
+            const form = document.querySelector('form');
             const tambahGejalaBtn = document.querySelector('.btn-tambah');
+            let gejalaCounter = 4; // Start from gejala4 since gejala1, gejala2, and gejala3 are already in HTML
 
-            // Tambahkan event listener untuk tombol "Tambah Gejala"
+            // Event listener for adding symptoms
             tambahGejalaBtn.addEventListener('click', function() {
-                // Dapatkan dropdown yang akan diduplikasi
-                const existingDropdown = document.querySelector('.gejala-dropdown');
-
-                // Duplikasi dropdown yang sudah ada
-                const newDropdown = existingDropdown.cloneNode(true);
-
-                // Kosongkan nilai dropdown baru
-                newDropdown.value = '';
-
-                // Dapatkan parent dari .sec-btn
-                const secBtnParent = document.querySelector('.sec-btn').parentNode;
-
-                // Sisipkan dropdown baru sebelum .sec-btn
-                secBtnParent.insertBefore(newDropdown, document.querySelector('.sec-btn'));
+                if(gejalaCounter <= 5) { // Limit to a total of 5 symptoms
+                    const gejalaContainer = document.getElementById('gejalaContainer');
+                    const newDropdown = document.createElement('div');
+                    newDropdown.classList.add('col-6', 'gejala-dropdown');
+                    newDropdown.innerHTML = `
+                        <select name="gejala${gejalaCounter}" id="gejala${gejalaCounter}" class="form-select">
+                            <option selected disabled value="">Pilih gejala anda</option>
+                            @foreach($keluhan as $item)
+                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                            @endforeach
+                        </select>`;
+                    gejalaContainer.appendChild(newDropdown);
+                    gejalaCounter++;
+                }
+            });
+            // Event listener for form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                fetch('http://localhost:5000/submit', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json()) // Parse the JSON response
+                  .then(data => {
+                    if(data.error) {
+                        alert(data.error); // Display error if any
+                    } else {
+                        // Update modal or UI elements with the results
+                        const resultText = `Prognosis: ${data.prognosis.join(', ')}\nSelected Symptoms: ${data.selected_symptoms.join(', ')}`;
+                        document.querySelector('.modal-body').textContent = resultText;
+                        new bootstrap.Modal(document.getElementById('resultModal')).show();
+                    }
+                  })
+                  .catch(error => console.error('Error:', error));
             });
         });
     </script>
-
-
-
-
-
-
-
+        
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="assets/js/sidenav.js"></script>
 </body>
