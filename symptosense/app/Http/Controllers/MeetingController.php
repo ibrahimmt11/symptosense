@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\Meeting;
 
 
 class MeetingController extends Controller
@@ -23,7 +24,7 @@ class MeetingController extends Controller
 
     public function startMeeting($id_diagnosis) {
         $meetingLink = $this->generateJitsiMeetingLink();
-        MeetingController::create([
+        Meeting::create([
             'id_diagnosis' => $id_diagnosis,
             'meeting_link' => $meetingLink,
             'status' => 'scheduled',
