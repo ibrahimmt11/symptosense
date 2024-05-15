@@ -121,11 +121,15 @@
                                             <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             <td>
-                                                @if($consultation->status === 'scheduled' || $consultation->status === 'active')
-                                                    <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-success">Join Meeting</a>
-                                                @else
-                                                    <span class="badge badge-secondary">No Meeting Scheduled</span>
-                                                @endif
+                                                <td>
+                                                    @if($consultation->meeting_status === 'scheduled')
+                                                        <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-primary">Join Meeting</a>
+                                                    @elseif($consultation->meeting_status === 'active')
+                                                        <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-success">Join Active Meeting</a>
+                                                    @else
+                                                        <span class="badge badge-secondary">No Meeting Scheduled</span>
+                                                    @endif
+                                                </td>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -16,8 +16,16 @@ class KonsultasiPController extends Controller
         $consultations = DB::table('konsultasi')
             ->join('dokter', 'konsultasi.id_dokter', '=', 'dokter.id_dokter')
             ->join('diagnosis', 'konsultasi.id_diagnosis', '=', 'diagnosis.id_diagnosis')
-            ->where('konsultasi.id_pasien', $userId) // Filter by logged-in user's ID
-            ->select('dokter.nama_lengkap', 'diagnosis.id_diagnosis', 'diagnosis.dokumen as diagnosis_dokter', 'konsultasi.status')
+            ->leftJoin('meetings', 'diagnosis.id_diagnosis', '=', 'meetings.id_diagnosis')
+            ->where('konsultasi.id_pasien', $userId)
+            ->select(
+                'dokter.nama_lengkap', 
+                'diagnosis.id_diagnosis', 
+                'diagnosis.dokumen as diagnosis_dokter', 
+                'konsultasi.status',
+                'meetings.meeting_link',
+                'meetings.status as meeting_status'
+            )
             ->get();
 
         return view('Pasien.konsultasiP', ['consultations' => $consultations]);

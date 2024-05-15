@@ -15,19 +15,18 @@ class KonsultasiDController extends Controller
         // Fetch the 'id_dokter' based on the 'user_id'
         $dokterId = DB::table('dokter')->where('user_id', $userId)->value('id_dokter');
 
-        // Fetch consultations for the dokter, including meeting details
         $consultations = DB::table('konsultasi')
             ->join('pasien', 'konsultasi.id_pasien', '=', 'pasien.id_pasien')
             ->join('diagnosis', 'konsultasi.id_diagnosis', '=', 'diagnosis.id_diagnosis')
-            ->leftJoin('meetings', 'diagnosis.id_diagnosis', '=', 'meetings.id_diagnosis') // Left join to include meetings
-            ->where('konsultasi.id_dokter', $dokterId) // Filter using the fetched 'dokterId'
+            ->leftJoin('meetings', 'diagnosis.id_diagnosis', '=', 'meetings.id_diagnosis')
+            ->where('konsultasi.id_dokter', $dokterId)
             ->select(
                 'pasien.nama_lengkap', 
                 'diagnosis.id_diagnosis', 
                 'diagnosis.dokumen as diagnosis_dokter', 
                 'konsultasi.status',
                 'meetings.meeting_link',
-                'meetings.status as meeting_status' // Differentiate meeting status and consultation status
+                'meetings.status as meeting_status'
             )
             ->get();
 
