@@ -12,12 +12,14 @@ class KonsultasiPController extends Controller
         // Get the current user's ID
         $userId = Auth::id();
 
+        $pasienId = DB::table('pasien')->where('user_id', $userId)->value('id_pasien');
+
         // Retrieve consultations only for the logged-in patient
         $consultations = DB::table('konsultasi')
             ->join('dokter', 'konsultasi.id_dokter', '=', 'dokter.id_dokter')
             ->join('diagnosis', 'konsultasi.id_diagnosis', '=', 'diagnosis.id_diagnosis')
             ->leftJoin('meetings', 'diagnosis.id_diagnosis', '=', 'meetings.id_diagnosis')
-            ->where('konsultasi.id_pasien', $userId)
+            ->where('konsultasi.id_pasien', $pasienId)
             ->select(
                 'dokter.nama_lengkap', 
                 'diagnosis.id_diagnosis', 

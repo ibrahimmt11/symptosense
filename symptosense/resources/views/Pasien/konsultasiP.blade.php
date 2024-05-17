@@ -127,7 +127,7 @@
                                                     @elseif($consultation->meeting_status === 'active')
                                                         <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-success">Join Active Meeting</a>
                                                     @else
-                                                        <span class="badge badge-secondary">No Meeting Scheduled</span>
+                                                        <span class="badge badge-secondary" style= "color: black">No Meeting Scheduled</span>
                                                     @endif
                                                 </td>
                                         </tr>
