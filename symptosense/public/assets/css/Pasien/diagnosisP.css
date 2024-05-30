@@ -216,3 +216,16 @@ body {
     width: 240px;
     height: 60px;
 }
+
+#resultModalLabel {
+    color: white;
+}
+
+.modal-header {
+    background-color: #163172;
+}
+
+.ct {
+    background-color: #f8f8fa;
+    border-radius: 5px;
+}

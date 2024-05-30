@@ -122,7 +122,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="row g-2 sec-btn">
                                 <div class="col-6">
                                     <button type="button" class="btn btn-tambah">
@@ -200,6 +200,60 @@
                 </div>
                 <div class="modal-body">
                     <!-- Content akan diisi oleh JavaScript -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="p-3 title">Dokter Aktif</h2>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <img src="assets/images/pasien.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                    <div>
+                                        <span class="fw-bold">Dr. Adbi Kusuma</span><br>
+                                        <span>Spesialis Anak</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                    <div>
+                                        <span class="fw-bold">Dr. Jason</span><br>
+                                        <span>Spesialis Mata</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                    <div>
+                                        <span class="fw-bold">Dr. Ronald</span><br>
+                                        <span>Spesialis Kulit</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                    <div>
+                                        <span class="fw-bold">Dr. Tirta</span><br>
+                                        <span>Spesialis Anak</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                                    <div>
+                                        <span class="fw-bold">Dr. Cahya</span><br>
+                                        <span>Spesialis Mata</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-5">
+                            <div class="container ct">
+                                <h5 class="fw-bold">Nama Penyakit</h5>
+                            </div>
+                            <div class="container ct">
+                                <h6 class="fw-bold">Detail Diagnosis</h6>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <h6 class="fw-bold">Keluhan</h6>
+                                <p>Keluhan 1 &nbsp;&nbsp; Keluhan 2 &nbsp;&nbsp; Keluhan 3<br>
+                                    Keluhan 4 &nbsp;&nbsp; Keluhan 5</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -215,7 +269,7 @@
 
             // Event listener for adding symptoms
             tambahGejalaBtn.addEventListener('click', function() {
-                if(gejalaCounter <= 5) { // Limit to a total of 5 symptoms
+                if (gejalaCounter <= 5) { // Limit to a total of 5 symptoms
                     const gejalaContainer = document.getElementById('gejalaContainer');
                     const newDropdown = document.createElement('div');
                     newDropdown.classList.add('col-6', 'gejala-dropdown');
@@ -244,47 +298,47 @@
                 }
 
                 fetch('http://localhost:5000/submit', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        alert(data.error);
-                    } else {
-                        // Update modal or UI elements with the results
-                        const resultText = `Prognosis: ${data.prognosis.join(', ')}\nSelected Symptoms: ${data.selected_symptoms.join(', ')}`;
-                        document.querySelector('.modal-body').textContent = resultText;
-                        new bootstrap.Modal(document.getElementById('resultModal')).show();
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            // Update modal or UI elements with the results
+                            // const resultText = `Prognosis: ${data.prognosis.join(', ')}\nSelected Symptoms: ${data.selected_symptoms.join(', ')}`;
+                            // document.querySelector('.modal-body').textContent = resultText;
+                            new bootstrap.Modal(document.getElementById('resultModal')).show();
 
-                        // Save the diagnosis to the database
-                        fetch('/save-diagnosis', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                prognosis: data.prognosis.join(', '), // Send prognosis as comma-separated string
-                                selected_symptoms: selectedSymptoms // Send array of selected symptoms
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(saveData => {
-                            console.log("Save Diagnosis Response: ", saveData); // Log save response for debugging
-                            if (saveData.success) {
-                                console.log('Diagnosis saved successfully');
-                            } else {
-                                console.log('Failed to save diagnosis');
-                            }
-                        });
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                            // Save the diagnosis to the database
+                            fetch('/save-diagnosis', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                    },
+                                    body: JSON.stringify({
+                                        prognosis: data.prognosis.join(', '), // Send prognosis as comma-separated string
+                                        selected_symptoms: selectedSymptoms // Send array of selected symptoms
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(saveData => {
+                                    console.log("Save Diagnosis Response: ", saveData); // Log save response for debugging
+                                    if (saveData.success) {
+                                        console.log('Diagnosis saved successfully');
+                                    } else {
+                                        console.log('Failed to save diagnosis');
+                                    }
+                                });
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
     </script>
-        
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="assets/js/sidenav.js"></script>
 </body>
