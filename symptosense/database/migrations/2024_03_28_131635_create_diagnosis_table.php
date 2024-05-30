@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_dokter');
             $table->string('status');
             $table->string('dokumen'); // Assuming 'dokumen' is a string, adjust the data type if different
+            $table->text('gejala_terpilih');
 
             // Define foreign keys if necessary
             $table->foreign('id_dokter')->references('id_dokter')->on('dokter')->onDelete('cascade');
