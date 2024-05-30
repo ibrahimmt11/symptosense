@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Diagnosis</title>
 </head>
 
@@ -234,21 +234,53 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const formData = new FormData(form);
+
+                // Get selected symptoms
+                const selectedSymptoms = [];
+                for (let pair of formData.entries()) {
+                    if (pair[0].startsWith('gejala') && pair[1] !== '') { // Filter only gejala fields with values
+                        selectedSymptoms.push(pair[1]);
+                    }
+                }
+
                 fetch('http://localhost:5000/submit', {
                     method: 'POST',
                     body: formData
-                }).then(response => response.json()) // Parse the JSON response
-                  .then(data => {
-                    if(data.error) {
-                        alert(data.error); // Display error if any
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
                     } else {
                         // Update modal or UI elements with the results
                         const resultText = `Prognosis: ${data.prognosis.join(', ')}\nSelected Symptoms: ${data.selected_symptoms.join(', ')}`;
                         document.querySelector('.modal-body').textContent = resultText;
                         new bootstrap.Modal(document.getElementById('resultModal')).show();
+
+                        // Save the diagnosis to the database
+                        fetch('/save-diagnosis', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                prognosis: data.prognosis.join(', '), // Send prognosis as comma-separated string
+                                selected_symptoms: selectedSymptoms // Send array of selected symptoms
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(saveData => {
+                            console.log("Save Diagnosis Response: ", saveData); // Log save response for debugging
+                            if (saveData.success) {
+                                console.log('Diagnosis saved successfully');
+                            } else {
+                                console.log('Failed to save diagnosis');
+                            }
+                        });
                     }
-                  })
-                  .catch(error => console.error('Error:', error));
+                })
+                .catch(error => console.error('Error:', error));
             });
         });
     </script>

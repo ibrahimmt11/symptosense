@@ -26,6 +26,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/diagnosis', [DiagnosisController::class, 'diagnosis']);
 
 Route::get('/diagnosisP', [DiagnosisPController::class, 'diagnosisP']);
+Route::post('/save-diagnosis', [DiagnosisPController::class, 'store']);
 Route::get('/konsultasiP', [KonsultasiPController::class, 'konsultasiP'])->middleware('auth');
 
 Route::get('/konsultasiD', [KonsultasiDController::class, 'konsultasiD'])->middleware('auth');;
@@ -61,7 +62,9 @@ Route::get('/meeting/create', [MeetingController::class, 'create'])->name('meeti
 Route::get('/meeting/join/{roomName}', [MeetingController::class, 'join'])->name('meeting.join');
 
 Route::get('/meetings/start/{id_diagnosis}', [MeetingController::class, 'startMeeting'])->name('meetings.start');
-Route::get('/meetings/join/{id_diagnosis}', [MeetingController::class, 'joinMeeting'])->name('meetings.join');
+
+Route::post('/save-diagnosis', [DiagnosisPController::class, 'saveDiagnosis']);
+
 
 
 

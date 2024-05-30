@@ -39,9 +39,12 @@ class MeetingController extends Controller
         return 'https://meet.jit.si/' . Str::random(40);
     }
 
-    public function joinMeeting($id_diagnosis) {
+    public function joinMeeting($id_diagnosis)
+    {
         $meeting = Meeting::where('id_diagnosis', $id_diagnosis)->firstOrFail();
-        return redirect()->to($meeting->meeting_link);
+
+        // Pass the meeting link to the view
+        return view('Pasien.iframe', ['meetingLink' => $meeting->meeting_link]); 
     }
     
     

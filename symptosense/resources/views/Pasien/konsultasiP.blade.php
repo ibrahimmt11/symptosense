@@ -11,6 +11,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <title>Konsultasi</title>
+    <style>
+        /* Initially hide the iframe */
+        #meetingIframe {
+            display: none;
+            border: none; /* Optional: Remove default iframe border */
+        }
+    </style>
 </head>
 
 <body style="background-color: #D6E4F0;">
@@ -121,26 +128,30 @@
                                             <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             
-                                                <td>
-                                                    @if($consultation->meeting_status === 'scheduled')
-                                                        <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-primary">Join Meeting</a>
-                                                    @elseif($consultation->meeting_status === 'active')
-                                                        <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-success">Join Active Meeting</a>
-                                                    @else
-                                                        <span class="badge badge-secondary" style= "color: black">No Meeting Scheduled</span>
-                                                    @endif
-                                                </td>
+                                            <td>
+                                                @if($consultation->meeting_status === 'scheduled')
+                                                    <button class="btn btn-primary" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
+                                                @elseif($consultation->meeting_status === 'active')
+                                                    <button class="btn btn-success" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Active Meeting</button>
+                                                @else
+                                                    <span class="badge badge-secondary" style= "color: black">No Meeting Scheduled</span>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endif
                             </tbody>
                         </table>
                     </div>
+                    <iframe id="meetingIframe" width="100%" height="600px" allow="camera; microphone; fullscreen"></iframe>
+                    <script>
+                        function showIframe(meetingLink) {
+                            document.getElementById('meetingIframe').src = meetingLink;
+                            document.getElementById('meetingIframe').style.display = 'block';
+                        }
+                    </script>
                 </div>
             </div>
-            
-            
-
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

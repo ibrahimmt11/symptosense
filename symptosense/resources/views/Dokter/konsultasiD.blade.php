@@ -11,6 +11,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <title>Konsultasi</title>
+    <style>
+        /* Initially hide the iframe */
+        #meetingIframe {
+            display: none;
+            border: none; /* Optional: Remove default iframe border */
+        }
+    </style>
 </head>
 
 <body style="background-color: #D6E4F0;">
@@ -120,9 +127,9 @@
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             <td>
                                                 @if($consultation->status === 'scheduled' || $consultation->status === 'active')
-                                                    <a href="{{ route('meetings.join', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-success">Join Meeting</a>
+                                                    <button class="btn btn-success" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
                                                 @else
-                                                    <a href="{{ route('meetings.start', ['id_diagnosis' => $consultation->id_diagnosis]) }}" class="btn btn-primary">Start Meeting</a>
+                                                    <button class="btn btn-primary" onclick="showIframe('{{ route('meetings.start', ['id_diagnosis' => $consultation->id_diagnosis]) }}')">Start Meeting</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -131,6 +138,13 @@
                             </tbody>
                         </table>
                     </div>
+                    <iframe id="meetingIframe" width="100%" height="600px" allow="camera; microphone; fullscreen"></iframe>
+                    <script>
+                        function showIframe(meetingLink) {
+                            document.getElementById('meetingIframe').src = meetingLink;
+                            document.getElementById('meetingIframe').style.display = 'block';
+                        }
+                    </script>
                 </div>
             </div>
 
