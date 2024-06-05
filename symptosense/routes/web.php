@@ -84,3 +84,4 @@ Route::post('/consultations/{id_diagnosis}/complete', [KonsultasiDController::cl
 
 
 
+

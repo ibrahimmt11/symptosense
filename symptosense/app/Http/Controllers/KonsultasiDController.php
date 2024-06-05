@@ -47,7 +47,7 @@ class KonsultasiDController extends Controller
             ->update(['meeting_link' => null]);
 
         // Redirect back to the consultations page
-        return redirect()->route('Dokter.konsultasiD');
+        return redirect('/konsultasiD');
     }
 
 }
