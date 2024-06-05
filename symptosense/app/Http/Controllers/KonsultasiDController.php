@@ -34,4 +34,20 @@ class KonsultasiDController extends Controller
         return view('Dokter.konsultasiD', ['consultations' => $consultations]);
     }
 
+    public function updateConsultationStatus($id_diagnosis)
+    {
+        // Update the consultation status to "completed"
+        DB::table('konsultasi')
+            ->where('id_diagnosis', $id_diagnosis)
+            ->update(['status' => 'completed']);
+
+        // Remove the meeting link from the database
+        DB::table('meetings')
+            ->where('id_diagnosis', $id_diagnosis)
+            ->update(['meeting_link' => null]);
+
+        // Redirect back to the consultations page
+        return redirect()->route('Dokter.konsultasiD');
+    }
+
 }

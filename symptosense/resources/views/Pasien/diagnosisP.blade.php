@@ -192,151 +192,258 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="resultModalLabel">Hasil Diagnosis</h5>
+                    <h5 class="modal-title" id="resultModalLabel">Diagnosis Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Content akan diisi oleh JavaScript -->
                     <div class="row">
                         <div class="col-md-6">
-                            <h2 class="p-3 title">Dokter Aktif</h2>
+                            <h2 class="p-3 title">Active Doctors</h2>
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <img src="assets/images/pasien.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
-                                    <div>
-                                        <span class="fw-bold">Dr. Adbi Kusuma</span><br>
-                                        <span>Spesialis Anak</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
-                                    <div>
-                                        <span class="fw-bold">Dr. Jason</span><br>
-                                        <span>Spesialis Mata</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
-                                    <div>
-                                        <span class="fw-bold">Dr. Ronald</span><br>
-                                        <span>Spesialis Kulit</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
-                                    <div>
-                                        <span class="fw-bold">Dr. Tirta</span><br>
-                                        <span>Spesialis Anak</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
-                                    <div>
-                                        <span class="fw-bold">Dr. Cahya</span><br>
-                                        <span>Spesialis Mata</span>
-                                    </div>
-                                </a>
+                                <!-- Doctor items will be appended here by JavaScript -->
                             </div>
                         </div>
                         <div class="col-md-6 mt-5">
                             <div class="container ct">
-                                <h5 class="fw-bold">Nama Penyakit</h5>
+                                <h6 class="fw-bold">Nama Penyakit</h6>
+                                <h3 class="fw-bold" id="namaPenyakit"></h3>
+                                <!-- Content will be populated here -->
                             </div>
                             <div class="container ct">
-                                <h6 class="fw-bold">Detail Diagnosis</h6>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                <h6 class="fw-bold">Keluhan</h6>
-                                <p>Keluhan 1 &nbsp;&nbsp; Keluhan 2 &nbsp;&nbsp; Keluhan 3<br>
-                                    Keluhan 4 &nbsp;&nbsp; Keluhan 5</p>
+                                <h6 class="fw-bold">Gejala</h6>
+                                <p id="gejala">Dynamic content</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const form = document.querySelector('form');
-            const tambahGejalaBtn = document.querySelector('.btn-tambah');
-            let gejalaCounter = 4; // Start from gejala4 since gejala1, gejala2, and gejala3 are already in HTML
+        const form = document.querySelector('form');
+        const tambahGejalaBtn = document.querySelector('.btn-tambah');
+        let gejalaCounter = 4;
 
-            // Event listener for adding symptoms
-            tambahGejalaBtn.addEventListener('click', function() {
-                if (gejalaCounter <= 5) { // Limit to a total of 5 symptoms
-                    const gejalaContainer = document.getElementById('gejalaContainer');
-                    const newDropdown = document.createElement('div');
-                    newDropdown.classList.add('col-6', 'gejala-dropdown');
-                    newDropdown.innerHTML = `
-                        <select name="gejala${gejalaCounter}" id="gejala${gejalaCounter}" class="form-select">
-                            <option selected disabled value="">Pilih gejala anda</option>
-                            @foreach($keluhan as $item)
-                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
-                            @endforeach
-                        </select>`;
-                    gejalaContainer.appendChild(newDropdown);
-                    gejalaCounter++;
+        tambahGejalaBtn.addEventListener('click', function() {
+            if (gejalaCounter <= 5) {
+                const gejalaContainer = document.getElementById('gejalaContainer');
+                const newDropdown = document.createElement('div');
+                newDropdown.classList.add('col-6', 'gejala-dropdown');
+                newDropdown.innerHTML = `
+                    <select name="gejala${gejalaCounter}" id="gejala${gejalaCounter}" class="form-select">
+                        <option selected disabled value="">Pilih gejala anda</option>
+                        @foreach($keluhan as $item)
+                        <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                        @endforeach
+                    </select>`;
+                gejalaContainer.appendChild(newDropdown);
+                gejalaCounter++;
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const selectedSymptoms = [];
+            for (let pair of formData.entries()) {
+                if (pair[0].startsWith('gejala') && pair[1] !== '') {
+                    selectedSymptoms.push(pair[1]);
+                }
+            }
+
+            fetch('http://localhost:5000/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        new bootstrap.Modal(document.getElementById('resultModal')).show();
+
+                        document.getElementById('namaPenyakit').textContent = data.prognosis.join(', ');
+                        document.getElementById('gejala').textContent = selectedSymptoms.join(', ');
+
+                        fetch('/save-diagnosis', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({
+                                    prognosis: data.prognosis.join(', '),
+                                    selected_symptoms: selectedSymptoms
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(saveData => {
+                                if (saveData.success) {
+                                    console.log('Diagnosis saved successfully');
+                                    fetchDoctors(data.prognosis.join(', '), selectedSymptoms);
+                                } else {
+                                    console.log('Failed to save diagnosis');
+                                }
+                            });
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        function fetchDoctors(prognosis, selectedSymptoms) {
+            fetch('/doctors')
+                .then(response => response.json())
+                .then(doctors => {
+                    const doctorList = document.querySelector('.list-group');
+                    doctorList.innerHTML = '';
+                    doctors.forEach(doctor => {
+                        const doctorItem = document.createElement('a');
+                        doctorItem.href = '#';
+                        doctorItem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center');
+                        doctorItem.innerHTML = `
+                            <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
+                            <div>
+                                <span class="fw-bold">${doctor.nama_lengkap}</span><br>
+                                <span>${doctor.alamat}</span>
+                            </div>
+                            <button type="button" class="btn btn-primary pilih-btn" data-id="${doctor.id_dokter}" data-prognosis="${prognosis}" data-symptoms='${JSON.stringify(selectedSymptoms)}'>Pilih</button>`;
+                        doctorList.appendChild(doctorItem);
+                    });
+
+                    document.querySelectorAll('.pilih-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                        const doctorId = this.getAttribute('data-id');
+                        const prognosis = this.getAttribute('data-prognosis');
+                        const symptoms = JSON.parse(this.getAttribute('data-symptoms'));
+
+                        // Fetch id_pasien and id_diagnosis from somewhere in your page
+                        const idPasien = getLoggedInUserId(); // Example function to get id_pasien
+
+                        // Example function to get id_diagnosis
+                        fetch(`/get-newly-created-diagnosis-id/${idPasien}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.id) {
+                                    const idDiagnosis = data.id; // Assuming the diagnosis ID is returned in the response
+                                    const hasilKonsul = 'Some hardcoded result';
+                                    const status = 'Some hardcoded status';
+                                    
+                                    saveConsultation(doctorId, idPasien, idDiagnosis, hasilKonsul, status);
+                                } else {
+                                    console.error('Failed to get newly created diagnosis ID');
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+
+                });
+                })
+                .catch(error => console.error('Error fetching doctors:', error));
+        }
+
+        // Define the function to retrieve the logged-in user's ID
+        function getLoggedInUserId() {
+            // Implement logic to retrieve the logged-in user's ID here
+            // For example, if the user's ID is stored in a global variable or in the DOM:
+            return {{ Auth::id() }}; // Replace this with the actual method to fetch the user's ID in your application
+        }
+
+        function getNewlyCreatedDiagnosisId(pasienId) {
+            return fetch(`/get-newly-created-diagnosis-id/${pasienId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to retrieve newly created diagnosis ID');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    return data.id;
+                })
+                .catch(error => {
+                    console.error('Error fetching newly created diagnosis ID:', error);
+                    return null;
+                });
+        }
+
+
+
+
+
+
+        function saveConsultation(doctorId, idPasien, idDiagnosis, hasilKonsul, status) {
+            fetch('/save-consultation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    id_dokter: doctorId,
+                    id_pasien: idPasien,
+                    id_diagnosis: idDiagnosis,
+                    hasil_konsul: hasilKonsul,
+                    status: status
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Consultation saved successfully');
+                    // Handle success actions here
+                } else {
+                    console.log('Failed to save consultation');
                 }
             });
-            // Event listener for form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(form);
+        }
 
-                // Get selected symptoms
-                const selectedSymptoms = [];
-                for (let pair of formData.entries()) {
-                    if (pair[0].startsWith('gejala') && pair[1] !== '') { // Filter only gejala fields with values
-                        selectedSymptoms.push(pair[1]);
-                    }
-                }
-
-                fetch('http://localhost:5000/submit', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            // Update modal or UI elements with the results
-                            // const resultText = `Prognosis: ${data.prognosis.join(', ')}\nSelected Symptoms: ${data.selected_symptoms.join(', ')}`;
-                            // document.querySelector('.modal-body').textContent = resultText;
-                            new bootstrap.Modal(document.getElementById('resultModal')).show();
-
-                            // Save the diagnosis to the database
-                            fetch('/save-diagnosis', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                    },
-                                    body: JSON.stringify({
-                                        prognosis: data.prognosis.join(', '), // Send prognosis as comma-separated string
-                                        selected_symptoms: selectedSymptoms // Send array of selected symptoms
-                                    })
-                                })
-                                .then(response => response.json())
-                                .then(saveData => {
-                                    console.log("Save Diagnosis Response: ", saveData); // Log save response for debugging
-                                    if (saveData.success) {
-                                        console.log('Diagnosis saved successfully');
-                                    } else {
-                                        console.log('Failed to save diagnosis');
-                                    }
-                                });
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+        // Attach event listener to each row in the diagnosis history table
+        document.querySelectorAll('.diagnosis-row').forEach(row => {
+            row.addEventListener('click', function() {
+                console.log('Row clicked:', this.dataset.id);
+                const id_diagnosis = this.dataset.id;
+                fetchDiagnosisDetails(id_diagnosis);
             });
         });
+
+        // Function to fetch diagnosis details and populate modal
+        function fetchDiagnosisDetails(id_diagnosis) {
+            console.log('Fetching details for ID:', id_diagnosis);
+            fetch(`/get-diagnosis-details/${id_diagnosis}`)
+                .then(response => {
+                    console.log('Response:', response);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data received:', data);
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        // Populate modal with fetched data
+                        document.getElementById('diseaseName').textContent = data.hasil_diagnosis;
+                        document.getElementById('complaints').textContent = data.gejala_terpilih;
+                        // Show the modal
+                        new bootstrap.Modal(document.getElementById('resultModal')).show();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+
+
+    });
+
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

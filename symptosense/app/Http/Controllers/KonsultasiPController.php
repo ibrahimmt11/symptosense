@@ -9,12 +9,11 @@ class KonsultasiPController extends Controller
 {
     public function konsultasiP()
     {
-        // Get the current user's ID
         $userId = Auth::id();
 
+        // Fetch the 'id_pasien' based on the 'user_id'
         $pasienId = DB::table('pasien')->where('user_id', $userId)->value('id_pasien');
 
-        // Retrieve consultations only for the logged-in patient
         $consultations = DB::table('konsultasi')
             ->join('dokter', 'konsultasi.id_dokter', '=', 'dokter.id_dokter')
             ->join('diagnosis', 'konsultasi.id_diagnosis', '=', 'diagnosis.id_diagnosis')
@@ -30,6 +29,7 @@ class KonsultasiPController extends Controller
             )
             ->get();
 
+        // Return the view with the consultations data
         return view('Pasien.konsultasiP', ['consultations' => $consultations]);
     }
 }

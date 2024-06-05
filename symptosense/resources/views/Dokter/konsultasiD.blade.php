@@ -128,8 +128,14 @@
                                             <td>
                                                 @if($consultation->status === 'scheduled' || $consultation->status === 'active')
                                                     <button class="btn btn-success" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
+                                                @elseif($consultation->status === 'completed')
+                                                    <span class="text-success">Completed</span>
                                                 @else
                                                     <button class="btn btn-primary" onclick="showIframe('{{ route('meetings.start', ['id_diagnosis' => $consultation->id_diagnosis]) }}')">Start Meeting</button>
+                                                    <form action="{{ route('consultations.complete', ['id_diagnosis' => $consultation->id_diagnosis]) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-secondary">Mark as Completed</button>
+                                                    </form>
                                                 @endif
                                             </td>
                                         </tr>

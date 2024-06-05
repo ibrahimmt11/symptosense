@@ -64,6 +64,22 @@ Route::get('/meeting/join/{roomName}', [MeetingController::class, 'join'])->name
 Route::get('/meetings/start/{id_diagnosis}', [MeetingController::class, 'startMeeting'])->name('meetings.start');
 
 Route::post('/save-diagnosis', [DiagnosisPController::class, 'saveDiagnosis']);
+// Fetch all doctors
+Route::get('/doctors', [DiagnosisPController::class, 'getDoctors']);
+
+// Save consultation
+Route::post('/save-consultation', [DiagnosisPController::class, 'saveConsultation']);
+
+Route::get('/get-diagnosis-details/{id_diagnosis}', [DiagnosisPController::class, 'getDiagnosisDetails']);
+
+Route::get('/get-newly-created-diagnosis-id/{pasien_id}', [DiagnosisPController::class, 'getNewlyCreatedDiagnosisId']);
+
+Route::post('/consultations/{id_diagnosis}/complete', [KonsultasiDController::class, 'updateConsultationStatus'])->name('consultations.complete');
+
+
+
+
+
 
 
 
