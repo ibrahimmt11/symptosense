@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_diagnosis');
-            $table->string('meeting_link');
+            $table->string('meeting_link')->nullable();
             $table->enum('status', ['scheduled', 'active', 'completed']);
             $table->dateTime('scheduled_time')->nullable();
             $table->timestamps();
