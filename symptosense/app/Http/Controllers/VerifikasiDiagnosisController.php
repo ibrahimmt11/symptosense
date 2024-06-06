@@ -23,7 +23,25 @@ class VerifikasiDiagnosisController extends Controller
                 'diagnosis.gejala_terpilih'
             )
             ->get();
+            // ->map(function($item) {
+            //     $item->gejala_terpilih = json_decode($item->gejala_terpilih);
+            //     return $item;
+            // });
 
         return view('Dokter.verifikasiDiagnosis', compact('consultations'));
+    }
+
+    public function update(Request $request, string $id_diagnosis){
+        $dataVerif = verifikasiDiagnosis::find($id_diagnosis);
+
+        $request->validate([
+            'keterangan' => 'required'
+        ]);
+
+        verifikasiDiagnosis::where('id_diagnosis', $dataVerif->id_diagnosis)->update([
+            'keterangan' => $request['keterangan']
+        ]);
+
+        return redirect('/diagnosisP');
     }
 }
