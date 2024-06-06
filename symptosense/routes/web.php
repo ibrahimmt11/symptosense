@@ -17,6 +17,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RiwayatPController;
 use App\Http\Controllers\VerifikasiDiagnosisController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\DashboardDController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'landing']);
@@ -48,7 +49,7 @@ Route::get('/dashboardP', [DashboardPController::class, 'dashboardP'])
     ->middleware('auth', 'pasien');
 
 
-Route::get('/dashboardD', [DashboardPController::class, 'dashboardD'])
+Route::get('/dashboardD', [DashboardDController::class, 'dashboardD'])
     ->name('dashboardD')
     ->middleware('auth', 'dokter');
 
@@ -80,6 +81,7 @@ Route::post('/consultations/{id_diagnosis}/complete', [KonsultasiDController::cl
 
 
 Route::post('/consultations/complete/{id_diagnosis}', [KonsultasiDController::class, 'completeConsultation'])->name('consultations.complete');
+
 
 
 

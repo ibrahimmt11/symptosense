@@ -106,26 +106,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Max</td>
-                                    <td>D1210301</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>Hasil.pdf</td>
-                                    <td>
-                                        <button type="button" class="btn btn-done">Details</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Kira</td>
-                                    <td>D1210302</td>
-                                    <td>Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-verif" data-bs-toggle="modal" data-bs-target="#detail">Details</button>
-                                    </td>
-                                </tr>
+                                @if($consultations->isEmpty())
+                                    <tr>
+                                        <td colspan="6" class="btn btn-primary">Belum ada history diagnosis.</td>
+                                    </tr>
+                                @else
+                                    @foreach($consultations as $consultation)
+                                        <tr>
+                                            <th scope="row">{{ $loop->index + 1 }}</th>
+                                            <td>{{ $consultation->nama_lengkap }}</td>
+                                            <td>{{ $consultation->id_diagnosis }}</td>
+                                            <td>{{ $consultation->hasil_diagnosis }}</td> 
+                                            <td>{{ $consultation->diagnosis_dokter }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-verif" data-bs-toggle="modal" data-bs-target="#detail">Details</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -148,26 +146,15 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="nama" style="font-weight: bold;">Nama pasien</label>
-                                                    <input type="text" class="form-control" id="nama" value="Kira" readonly>
+                                                    <input type="text" class="form-control" id="nama" value="{{ $consultation->nama_lengkap }}" readonly>
                                                 </div>
                                                 <div class="form-group mt-3">
                                                     <label for="" style="font-weight: bold;">Keluhan</label>
                                                     <div class="complaint-list">
                                                         <div class="list-group">
-                                                            <a href="#" class="list-group-item">Complaint 1</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-                                                            <a href="#" class="list-group-item">Complaint 2</a>
-
+                                                            @foreach(json_decode($consultation->gejala_terpilih) as $symptom)
+                                                                <a href="#" class="list-group-item">{{ $symptom }}</a>
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
@@ -181,10 +168,11 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="" style="font-weight: bold;">ID Diagnosis</label>
-                                                    <input type="text" class="form-control" id="" value="D1210302" readonly>
+                                                    <input type="text" class="form-control" id="" value="{{ $consultation->id_diagnosis }}" readonly>
                                                 </div>
                                                 <div class="form-group mt-3">
                                                     <label for="" style="font-weight: bold;">Diagnosis AI</label>
+                                                    
                                                     <div>
                                                         <i class="lni lni-empty-file" style="font-size: 16px;">
                                                             <span>AI_generated_diagnosis.PDF</span></i>

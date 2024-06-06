@@ -87,16 +87,16 @@
                             <img src="assets/images/pasien.png" alt="Gambar" class="img-fluid me-3">
                             <div class="text-content">
                                 <h2 class="title">Pasien</h2>
-                                <h2>10x</h2>
-                                <p class="description">10 Pasien bergabung minggu ini</p>
+                                <h2>{{ $totalPatients }}x</h2>
+                                <p class="description">{{ $totalPatients }} Pasien terdaftar</p>
                             </div>
                         </div>
                         <div class="content-box d-flex align-items-center col-md-6">
                             <img src="assets/images/diagnosis.png" alt="Gambar" class="img-fluid me-3">
                             <div class="text-content">
                                 <h2 class="title">Menunggu Verifikasi</h2>
-                                <h2 class="fs-5s">2 Diagnosis</h2>
-                                <p class="description">2 data menunggu verifikasi</p>
+                                <h2 class="fs-5s">{{ $pendingDiagnoses }} Diagnosis</h2>
+                                <p class="description">{{ $pendingDiagnoses }} data menunggu verifikasi</p>
                             </div>
                         </div>
                         <div class="container mt-4 mb-5 col-md-8">

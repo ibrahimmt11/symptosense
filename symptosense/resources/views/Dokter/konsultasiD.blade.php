@@ -123,7 +123,7 @@
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $consultation->nama_lengkap }}</td>
                                             <td>{{ $consultation->id_diagnosis }}</td>
-                                            <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
+                                            <td>{{ $consultation->hasil_diagnosis }}</td> <!-- Assuming a static file for demonstration -->
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             <td>
                                                 @if($consultation->status === 'scheduled' || $consultation->status === 'active')
@@ -135,7 +135,7 @@
                                                     <form action="{{ route('consultations.complete', ['id_diagnosis' => $consultation->id_diagnosis]) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         <button type="submit" class="btn btn-secondary">Mark as Completed</button>
-                                                    </form>                                                                                                       
+                                                    </form>                                                                                                      
                                                 @endif
                                             </td>
                                         </tr>

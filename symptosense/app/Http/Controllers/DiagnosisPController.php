@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Diagnosis;
 use App\Models\Konsultasi;
+use App\Models\Verifikasi;
 
 class DiagnosisPController extends Controller
 {
@@ -97,7 +98,6 @@ class DiagnosisPController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);

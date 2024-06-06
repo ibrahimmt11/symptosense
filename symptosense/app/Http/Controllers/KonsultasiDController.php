@@ -24,6 +24,7 @@ class KonsultasiDController extends Controller
                 'pasien.nama_lengkap', 
                 'diagnosis.id_diagnosis', 
                 'diagnosis.dokumen as diagnosis_dokter', 
+                'diagnosis.hasil_diagnosis',
                 'konsultasi.status',
                 'meetings.meeting_link',
                 'meetings.status as meeting_status'
