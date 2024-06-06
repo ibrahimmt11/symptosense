@@ -15,7 +15,8 @@
         /* Initially hide the iframe */
         #meetingIframe {
             display: none;
-            border: none; /* Optional: Remove default iframe border */
+            border: none;
+            /* Optional: Remove default iframe border */
         }
     </style>
 </head>
@@ -116,31 +117,31 @@
                             </thead>
                             <tbody>
                                 @if($consultations->isEmpty())
-                                    <tr>
-                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                </tr>
                                 @else
-                                    @foreach($consultations as $consultation)
-                                        <tr>
-                                            <th scope="row">{{ $loop->index + 1 }}</th>
-                                            <td>{{ $consultation->nama_lengkap }}</td>
-                                            <td>{{ $consultation->id_diagnosis }}</td>
-                                            <td>{{ $consultation->hasil_diagnosis }}</td> <!-- Assuming a static file for demonstration -->
-                                            <td>{{ $consultation->diagnosis_dokter }}</td>
-                                            
-                                            <td>
-                                                @if($consultation->status === 'completed')
-                                                    <span class="badge badge-success">Completed</span>
-                                                @elseif($consultation->meeting_status === 'scheduled')
-                                                    <button class="btn btn-primary" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
-                                                @elseif($consultation->meeting_status === 'active')
-                                                    <button class="btn btn-success" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Active Meeting</button>
-                                                @else
-                                                    <span class="badge badge-secondary" style="color: black">No Meeting Scheduled</span>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                @foreach($consultations as $consultation)
+                                <tr>
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $consultation->nama_lengkap }}</td>
+                                    <td>{{ $consultation->id_diagnosis }}</td>
+                                    <td>{{ $consultation->hasil_diagnosis }}</td> <!-- Assuming a static file for demonstration -->
+                                    <td>{{ $consultation->diagnosis_dokter }}</td>
+
+                                    <td>
+                                        @if($consultation->status === 'completed')
+                                        <span class="badge badge-success" style="background-color: green;">Completed</span>
+                                        @elseif($consultation->meeting_status === 'scheduled')
+                                        <button class="btn btn-primary" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
+                                        @elseif($consultation->meeting_status === 'active')
+                                        <button class="btn btn-success" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Active Meeting</button>
+                                        @else
+                                        <span class="badge badge-secondary" style="color: black">No Meeting Scheduled</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
                                 @endif
                             </tbody>
                         </table>
