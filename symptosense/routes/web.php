@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\DashboardPController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\DiagnosisPController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'landing']);
+Route::get('/artikel', [ArtikelController::class, 'artikel']);
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'show'])->name('login');

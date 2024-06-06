@@ -48,11 +48,11 @@
     <div class="row mx-5 pt-5">
       <div class="col-md-6">
         <h1 class="text-white">Temukan <strong>Solusi</strong>,<br>
-          <strong>SymtoSense</strong>, Pintu Masuk
+          <strong>SymptoSense</strong>, Pintu Masuk
           Penyelamatan Berbasis <strong>AI</strong> <br>
           untuk <strong>Kesehatanmu!</strong>
         </h1>
-        <p class="text-white deskripsi">Bergabunglah dengan SymtoSense hari ini
+        <p class="text-white deskripsi">Bergabunglah dengan SymptoSense hari ini
           untuk meramalkan kesehatanmu bersama AI!</p>
         <div>
           <a href="/diagnosis" type="button" class="btn try-it">Try it out!</a>
@@ -69,7 +69,7 @@
       <p class="artikel pt-4">Artikel terbaru</p>
     </div>
     <div class="col-md-6 text-end">
-      <p class="artikel pt-4 lihat-semua">Lihat semua</p>
+      <a href="/artikel" class="artikel pt-4 lihat-semua">Lihat semua</a>
     </div>
     <div class="container pt-3 ms-md-auto">
       <div class="row">
@@ -153,6 +153,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="artikel terpopuler">
+
   </div>
 
   <div class="footer">
