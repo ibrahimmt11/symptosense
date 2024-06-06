@@ -18,7 +18,7 @@ class DiagnosisPController extends Controller
 
         $diagnosisHistory = DB::table('diagnosis')
             ->join('dokter', 'diagnosis.id_dokter', '=', 'dokter.id_dokter')
-            ->select('dokter.nama_lengkap', 'diagnosis.id_diagnosis', 'diagnosis.dokumen as diagnosis_dokter', 'diagnosis.status')
+            ->select('dokter.nama_lengkap', 'diagnosis.id_diagnosis', 'diagnosis.hasil_diagnosis', 'diagnosis.dokumen as diagnosis_dokter', 'diagnosis.status')
             ->where('diagnosis.id_pasien', $pasienId)
             ->get();
 

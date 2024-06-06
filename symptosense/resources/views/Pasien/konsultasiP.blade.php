@@ -125,7 +125,7 @@
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $consultation->nama_lengkap }}</td>
                                             <td>{{ $consultation->id_diagnosis }}</td>
-                                            <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
+                                            <td>{{ $consultation->hasil_diagnosis }}</td> <!-- Assuming a static file for demonstration -->
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             
                                             <td>

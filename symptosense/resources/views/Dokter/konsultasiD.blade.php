@@ -135,7 +135,7 @@
                                                     <form action="{{ route('consultations.complete', ['id_diagnosis' => $consultation->id_diagnosis]) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         <button type="submit" class="btn btn-secondary">Mark as Completed</button>
-                                                    </form>
+                                                    </form>                                                                                                       
                                                 @endif
                                             </td>
                                         </tr>

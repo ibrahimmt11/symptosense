@@ -169,7 +169,7 @@
                                     <th scope="row">{{ $loop->index + 1 }}</th>
                                     <td>{{ $history->nama_lengkap }}</td>
                                     <td>{{ $history->id_diagnosis }}</td>
-                                    <td>Diagnosis_AI.pdf</td> <!-- Assuming a static file for demonstration -->
+                                    <td>{{ $history->hasil_diagnosis }}</td> <!-- Assuming a static file for demonstration -->
                                     <td>{{ $history->diagnosis_dokter }}</td>
                                     <td>
                                         <button type="button" class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
@@ -196,7 +196,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="resultModalLabel">Diagnosis Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -208,13 +207,12 @@
                         </div>
                         <div class="col-md-6 mt-5">
                             <div class="container ct">
-                                <h6 class="fw-bold">Nama Penyakit</h6>
                                 <h3 class="fw-bold" id="namaPenyakit"></h3>
                                 <!-- Content will be populated here -->
                             </div>
                             <div class="container ct">
-                                <h6 class="fw-bold">Gejala</h6>
-                                <p id="gejala">Dynamic content</p>
+                                <h6 class="fw-bold disease">Gejala</h6>
+                                <p id="gejala" style="padding-left: 10px;  padding-bottom: 10px;">Dynamic content</p>
                             </div>
                         </div>
                     </div>
@@ -273,28 +271,32 @@
                         new bootstrap.Modal(document.getElementById('resultModal')).show();
 
                         document.getElementById('namaPenyakit').textContent = data.prognosis.join(', ');
-                        document.getElementById('gejala').textContent = selectedSymptoms.join(', ');
+
+                        const gejalaDenganNomor = selectedSymptoms.map((gejala, index) => {
+                            return `${index + 1}. ${gejala}<br>`;
+                        });
+                        document.getElementById('gejala').innerHTML = gejalaDenganNomor.join('');
 
                         fetch('/save-diagnosis', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                },
-                                body: JSON.stringify({
-                                    prognosis: data.prognosis.join(', '),
-                                    selected_symptoms: selectedSymptoms
-                                })
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                prognosis: data.prognosis.join(', '),
+                                selected_symptoms: selectedSymptoms
                             })
-                            .then(response => response.json())
-                            .then(saveData => {
-                                if (saveData.success) {
-                                    console.log('Diagnosis saved successfully');
-                                    fetchDoctors(data.prognosis.join(', '), selectedSymptoms);
-                                } else {
-                                    console.log('Failed to save diagnosis');
-                                }
-                            });
+                        })
+                        .then(response => response.json())
+                        .then(saveData => {
+                            if (saveData.success) {
+                                console.log('Diagnosis saved successfully');
+                                fetchDoctors(data.prognosis.join(', '), selectedSymptoms);
+                            } else {
+                                console.log('Failed to save diagnosis');
+                            }
+                        });
                     }
                 })
                 .catch(error => console.error('Error:', error));
@@ -312,11 +314,11 @@
                         doctorItem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'align-items-center');
                         doctorItem.innerHTML = `
                             <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
-                            <div>
+                            <div class="flex-grow-1">
                                 <span class="fw-bold">${doctor.nama_lengkap}</span><br>
                                 <span>${doctor.alamat}</span>
                             </div>
-                            <button type="button" class="btn btn-primary pilih-btn" data-id="${doctor.id_dokter}" data-prognosis="${prognosis}" data-symptoms='${JSON.stringify(selectedSymptoms)}'>Pilih</button>`;
+                            <button type="button" class="btn btn-primary pilih-btn ms-auto" data-id="${doctor.id_dokter}" data-prognosis="${prognosis}" data-symptoms='${JSON.stringify(selectedSymptoms)}'>Pilih</button>`;
                         doctorList.appendChild(doctorItem);
                     });
 

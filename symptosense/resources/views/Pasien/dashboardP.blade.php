@@ -84,27 +84,27 @@
             <div class="row gl-2">
                 <div class="dashboard-content px-3 pt-4 w-100 d-flex">
                     <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/Konsul.png" alt="Gambar" class="img-fluid me-3">
+                        <img src="{{ asset('assets/images/Konsul.png') }}" alt="Gambar" class="img-fluid me-3">
                         <div class="text-content">
                             <h2 class="title">Total Konsultasi</h2>
-                            <h2>10x</h2>
-                            <p class="description">5 Macam dokter</p>
+                            <h2>{{ $totalConsultations }}x</h2>
+                            <p class="description">{{ $totalConsultations }} Macam dokter</p>
                         </div>
                     </div>
                     <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/diagnosis.png" alt="Gambar" class="img-fluid me-3">
+                        <img src="{{ asset('assets/images/diagnosis.png') }}" alt="Gambar" class="img-fluid me-3">
                         <div class="text-content">
                             <h2 class="title">Total Diagnosis</h2>
-                            <h2>10x</h2>
-                            <p class="description">10 Macam jenis penyakit</p>
+                            <h2>{{ $totalDiagnoses }}x</h2>
+                            <p class="description">{{ $totalDiagnoses }} Macam jenis penyakit</p>
                         </div>
                     </div>
                     <div class="content-box d-flex align-items-center col-3">
-                        <img src="assets/images/diagnosis.png" alt="Gambar" class="img-fluid me-3">
+                        <img src="{{ asset('assets/images/diagnosis.png') }}" alt="Gambar" class="img-fluid me-3">
                         <div class="text-content">
                             <h2 class="title">Menunggu Verifikasi</h2>
-                            <h2 class="fs-5s">2 Diagnosis</h2>
-                            <p class="description">2 data menunggu verifikasi dokter</p>
+                            <h2 class="fs-5s">{{ $pendingDiagnoses }} Diagnosis</h2>
+                            <p class="description">{{ $pendingDiagnoses }} data menunggu verifikasi dokter</p>
                         </div>
                     </div>
                 </div>
@@ -137,37 +137,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Jaydi Kerta</td>
-                                    <td>D1210301</td>
-                                    <td>@Diagnosis_AI.pdf</td>
-                                    <td>Hasil.pdf</td>
-                                    <td>
-                                        <button type="button" class="btn btn-done">Done</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Kerta Jasa</td>
-                                    <td>D1210302</td>
-                                    <td>@Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet" onclick="openJitsiMeeting()">Meet</button>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Jaydi Jasa</td>
-                                    <td>D1210303</td>
-                                    <td>@Diagnosis_AI.pdf</td>
-                                    <td>-</td>
-                                    <td>
-                                        <button type="button" class="btn btn-meet">Meet</button>
-                                    </td>
-                                </tr>
+                                @if($consultations->isEmpty())
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                    </tr>
+                                @else
+                                    @foreach($consultations as $consultation)
+                                        <tr>
+                                            <th scope="row">{{ $loop->index + 1 }}</th>
+                                            <td>{{ $consultation->nama_lengkap }}</td>
+                                            <td>{{ $consultation->id_diagnosis }}</td>
+                                            <td>{{ $consultation->hasil_diagnosis }}</td> <!-- Assuming a static file for demonstration -->
+                                            <td>{{ $consultation->diagnosis_dokter }}</td>
+                                            <td>
+                                                @if($consultation->status === 'completed')
+                                                    <span class="badge badge-success">Completed</span>
+                                                @elseif($consultation->meeting_status === 'scheduled')
+                                                    <button class="btn btn-primary" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
+                                                @elseif($consultation->meeting_status === 'active')
+                                                    <button class="btn btn-success" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Active Meeting</button>
+                                                @else
+                                                    <span class="badge badge-secondary" style="color: black">No Meeting Scheduled</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

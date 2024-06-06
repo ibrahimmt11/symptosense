@@ -77,6 +77,9 @@ Route::get('/get-newly-created-diagnosis-id/{pasien_id}', [DiagnosisPController:
 Route::post('/consultations/{id_diagnosis}/complete', [KonsultasiDController::class, 'updateConsultationStatus'])->name('consultations.complete');
 
 
+Route::post('/consultations/complete/{id_diagnosis}', [KonsultasiDController::class, 'completeConsultation'])->name('consultations.complete');
+
+
 
 
 
