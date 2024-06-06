@@ -151,7 +151,7 @@
                                             <td>{{ $consultation->diagnosis_dokter }}</td>
                                             <td>
                                                 @if($consultation->status === 'completed')
-                                                    <span class="badge badge-success">Completed</span>
+                                                    <span class="badge badge-success" style="background-color: green;">Completed</span>
                                                 @elseif($consultation->meeting_status === 'scheduled')
                                                     <button class="btn btn-primary" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
                                                 @elseif($consultation->meeting_status === 'active')
