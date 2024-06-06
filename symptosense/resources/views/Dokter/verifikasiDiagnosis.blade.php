@@ -116,8 +116,8 @@
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $consultation->nama_lengkap }}</td>
                                             <td>{{ $consultation->id_diagnosis }}</td>
-                                            <td>{{ $consultation->hasil_diagnosis }}</td> 
-                                            <td>{{ $consultation->diagnosis_dokter }}</td>
+                                            <td>{{ $consultation->hasil_diagnosis }}</td>
+                                            <td data-gejala="{{ $consultation->gejala_terpilih }}">{{ $consultation->diagnosis_dokter }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-verif" data-bs-toggle="modal" data-bs-target="#detail">Details</button>
                                             </td>
@@ -172,6 +172,7 @@
                                                 </div>
                                                 <div class="form-group mt-3">
                                                     <label for="" style="font-weight: bold;">Diagnosis AI</label>
+                                                    <input type="text" class="form-control" id="" value="{{ $consultation->hasil_diagnosis }}" readonly>
                                                     
                                                     <div>
                                                         <i class="lni lni-empty-file" style="font-size: 16px;">

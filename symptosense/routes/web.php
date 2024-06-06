@@ -82,6 +82,7 @@ Route::post('/consultations/{id_diagnosis}/complete', [KonsultasiDController::cl
 
 Route::post('/consultations/complete/{id_diagnosis}', [KonsultasiDController::class, 'completeConsultation'])->name('consultations.complete');
 
+Route::get('/verifikasiDiagnosis/{id}', [VerifikasiDiagnosisController::class, 'verifikasiDiagnosis']);
 
 
 
