@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('no_telp')->nullable();
             $table->string('email')->unique();
             $table->text('alamat')->nullable();
-            $table->string('profile_picture')->nullable()->after('alamat');
+            $table->string('profile_picture')->nullable();
             $table->string('bukti_str')->nullable(); 
             $table->timestamps();
         });

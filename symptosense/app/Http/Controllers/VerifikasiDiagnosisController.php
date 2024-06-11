@@ -18,10 +18,13 @@ class VerifikasiDiagnosisController extends Controller
         $dokterId = DB::table('dokter')->where('user_id', $userId)->value('id_dokter');
 
         // Fetch the doctor's data
-        $dokter = Dokter::find($dokterId); 
-        $consultations = DB::table('diagnosis')
+        $dokter = Dokter::find($dokterId);
+
+        // Fetch the consultations with diagnosis details for the logged-in doctor
+        $consultations = DB::table('konsultasi')
+            ->join('diagnosis', 'konsultasi.id_diagnosis', '=', 'diagnosis.id_diagnosis')
             ->join('pasien', 'diagnosis.id_pasien', '=', 'pasien.id_pasien')
-            ->join('dokter', 'diagnosis.id_dokter', '=', 'dokter.id_dokter')
+            ->where('konsultasi.id_dokter', $dokterId)
             ->select(
                 'pasien.nama_lengkap',
                 'diagnosis.id_diagnosis',
@@ -30,25 +33,75 @@ class VerifikasiDiagnosisController extends Controller
                 'diagnosis.gejala_terpilih'
             )
             ->get();
-            // ->map(function($item) {
-            //     $item->gejala_terpilih = json_decode($item->gejala_terpilih);
-            //     return $item;
-            // });
 
         return view('Dokter.verifikasiDiagnosis', compact('consultations', 'dokter'));
     }
 
-    public function update(Request $request, string $id_diagnosis){
-        $dataVerif = verifikasiDiagnosis::find($id_diagnosis);
-
+    public function update(Request $request, $id_diagnosis)
+    {
         $request->validate([
-            'keterangan' => 'required'
+            'status' => 'required',
         ]);
 
-        verifikasiDiagnosis::where('id_diagnosis', $dataVerif->id_diagnosis)->update([
-            'keterangan' => $request['keterangan']
+        $diagnosis = Diagnosis::findOrFail($id_diagnosis);
+        $diagnosis->status = $request->input('status');
+        $diagnosis->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function saveConsultation(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id_dokter' => 'required|integer',
+            'id_diagnosis' => 'required|integer',
         ]);
 
-        return redirect('/diagnosisP');
+        $userId = Auth::id();
+        $pasienId = DB::table('pasien')->where('user_id', $userId)->value('id_pasien');
+
+        try {
+            Konsultasi::create([
+                'id_dokter' => $validatedData['id_dokter'],
+                'id_pasien' => $pasienId,
+                'id_diagnosis' => $validatedData['id_diagnosis'],
+                'hasil_konsul' => '',
+                'status' => 'Scheduled',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateConsultation(Request $request)
+    {
+        // Retrieve the data from the request
+        $idDiagnosis = $request->input('id_diagnosis');
+        $idDokter = $request->input('id_dokter');
+        $verificationOption = $request->input('verificationOption'); // Assuming you're sending the verification option in the request
+
+        // Update the diagnosis record based on the verification option
+        if ($verificationOption === 'verify') {
+            // Update the status to 'verified'
+            DB::table('diagnosis')
+                ->where('id_diagnosis', $idDiagnosis)
+                ->update(['status' => 'verified']);
+
+            // Optionally, you can save additional data in the konsultasi table
+            // ...
+        } else {
+            // Update the status to 'not verified'
+            DB::table('diagnosis')
+                ->where('id_diagnosis', $idDiagnosis)
+                ->update(['status' => 'not verified']);
+
+            // Optionally, you can save additional data in the konsultasi table
+            // ...
+        }
+
+        return response()->json(['success' => true]);
     }
 }

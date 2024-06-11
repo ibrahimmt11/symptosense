@@ -171,28 +171,66 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($diagnosisHistory as $history)
-                                    <tr>
-                                        <th scope="row">{{ $loop->index + 1 }}</th>
-                                        <td>{{ $history->nama_lengkap }}</td>
-                                        <td>{{ $history->id_diagnosis }}</td>
-                                        <td>{{ $history->hasil_diagnosis }}</td>
-                                        <!-- Assuming a static file for demonstration -->
-                                        <td>{{ $history->diagnosis_dokter }}</td>
-                                        <td>
-                                            <button type="button"
-                                                class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
-                                                {{ $history->status }}
-                                            </button>
-                                        </td>
-                                    </tr>
+                                @php
+                                $currentPage = request()->has('page') ? request()->get('page') : 1;
+                                $startIndex = ($currentPage - 1) * 5;
+                                $endIndex = $startIndex + 4;
+                                @endphp
+                                @forelse($diagnosisHistory->slice($startIndex, 5) as $history)
+                                <tr>
+                                    <th scope="row">{{ $loop->index + $startIndex + 1  }}</th>
+                                    <td>{{ $history->nama_lengkap }}</td>
+                                    <td>{{ $history->id_diagnosis }}</td>
+                                    <td>{{ $history->hasil_diagnosis }}</td>
+                                    <!-- Assuming a static file for demonstration -->
+                                    <td>{{ $history->diagnosis_dokter }}</td>
+                                    <td>
+                                        <button type="button" class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
+                                            {{ $history->status }}
+                                        </button>
+                                    </td>
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+                                    <!-- Previous Button -->
+                                    <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Page Numbers -->
+                                    @php
+                                    $totalPages = ceil($diagnosisHistory->count() / 5);
+                                    $startPage = max(1, $currentPage - 2);
+                                    $endPage = min($totalPages, $startPage + 4);
+                                    $startPage = max(1, $endPage - 4);
+                                    @endphp
+
+                                    @for ($page = $startPage; $page <= $endPage; $page++) <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $page == 1 ? '?' : '?page=' . $page }}">{{ $page }}</a>
+                                        </li>
+                                        @endfor
+
+                                        <!-- Next Button -->
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -297,7 +335,8 @@
                                     },
                                     body: JSON.stringify({
                                         prognosis: data.prognosis.join(', '),
-                                        selected_symptoms: selectedSymptoms
+                                        selected_symptoms: selectedSymptoms,
+                                        
                                     })
                                 })
                                 .then(response => response.json())
@@ -330,7 +369,7 @@
                             <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic" alt="Profile Picture">
                             <div class="flex-grow-1">
                                 <span class="fw-bold">${doctor.nama_lengkap}</span><br>
-                                <span>${doctor.alamat}</span>
+                                <span>${doctor.id_dokter}</span>
                             </div>
                             <button type="button" class="btn btn-primary pilih-btn ms-auto" data-id="${doctor.id_dokter}" data-prognosis="${prognosis}" data-symptoms='${JSON.stringify(selectedSymptoms)}'>Pilih</button>`;
                             doctorList.appendChild(doctorItem);

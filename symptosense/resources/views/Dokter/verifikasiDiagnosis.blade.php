@@ -266,20 +266,18 @@
                 </div>
             </div> -->
             <!-- Modal Structure -->
-            <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="detailModalLabel">Details</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                         <div class="modal-body">
                             <div class="container mb-5">
                                 <div class="information">
                                     <div class="p-3 row">
-                                        <form action="" method="post" class="p-3 row">
+                                        <form class="p-3 row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="modalNama" style="font-weight: bold;">Nama
@@ -319,15 +317,14 @@
                                                         AI</label>
                                                     <input type="text" class="form-control" id="modalDiagnosisAI"
                                                         readonly>
-                                                    <select name="keterangan" id="" class="form-select">
-                                                        <option value="b">Verify</option>
-                                                        <option value="c">No verify</option>
+                                                    <select name="keterangan" id="verificationOption" id="" class="form-select">
+                                                        <option value="verify">Verify</option>
+                                                        <option value="no-verify">No verify</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-12 text-end mt-3">
-                                                <button type="button" class="btn btn-submit"
-                                                    data-bs-dismiss="modal">Submit</button>
+                                                <button type="button" class="btn btn-submit" id="submitButton">Submit</button>
                                                 <!-- Change button color as needed -->
                                             </div>
                                         </form>
@@ -391,7 +388,54 @@
                     modalGejala.innerHTML = '<p>No symptoms available.</p>';
                 }
             });
+        var submitButton = document.getElementById('submitButton');
+        var verificationOption = document.getElementById('verificationOption');
+
+        submitButton.addEventListener('click', function() {
+            var option = verificationOption.value;
+            var idDiagnosis = document.getElementById('modalIDDiagnosis').value;
+            var idDokter = {{ Auth::user()->id }}; // Assuming you have access to the authenticated user's ID
+
+            if (option === 'verify') {
+                // Send an AJAX request to your server-side controller method
+                sendVerificationRequest(idDiagnosis, idDokter, "verified");
+            } else {
+                // No action needed for "No verify"
+                console.log('No verification requested.');
+                sendVerificationRequest(idDiagnosis, idDokter, "not verified");
+            }
         });
+
+        function sendVerificationRequest(idDiagnosis, idDokter, verified) {
+            // Make an AJAX request using fetch or any other library like Axios
+            fetch('/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token for Laravel
+                },
+                body: JSON.stringify({
+                    id_dokter: idDokter,
+                    id_diagnosis: idDiagnosis,
+                    status: verified,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Consultation saved successfully!');
+                    // Optionally, you can display a success message or perform any other actions
+                } else {
+                    console.error('Error saving consultation:', data.error);
+                    // Optionally, you can display an error message or perform any other actions
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Optionally, you can display an error message or perform any other actions
+            });
+        }
+    });
     </script>
 
 

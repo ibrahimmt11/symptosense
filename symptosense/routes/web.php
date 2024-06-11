@@ -84,6 +84,10 @@ Route::post('/consultations/complete/{id_diagnosis}', [KonsultasiDController::cl
 
 Route::get('/verifikasiDiagnosis/{id}', [VerifikasiDiagnosisController::class, 'verifikasiDiagnosis']);
 // Route::put('/verifikasiDiagnosis/update/{id}', [VerifikasiDiagnosisController::class, 'update'])->name('verifikasiDiagnosis.update');
+Route::post('/saveConsultation', [YourController::class, 'saveConsultation']);
+
+
+
 
 
 
