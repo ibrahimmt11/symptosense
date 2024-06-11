@@ -139,6 +139,22 @@ class DiagnosisPController extends Controller
         }
     }
 
+    public function tambahGejala(Request $request)
+    {
+        // Validate the input data
+        $validatedData = $request->validate([
+            'gejala_baru' => 'required|string|max:255|unique:jeniskeluhan,nama_keluhan',
+        ]);
+
+        // Create a new JenisKeluhan record
+        JenisKeluhan::create([
+            'nama_keluhan' => $validatedData['gejala_baru'],
+        ]);
+
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'Gejala baru berhasil ditambahkan.');
+    }
+
 
 
 }

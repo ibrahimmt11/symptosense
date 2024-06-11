@@ -271,10 +271,48 @@
             </div>
         </div>
     </div>
+    
 
 
 
     <script>
+        const formTambahGejala = document.querySelector('#modalTambah form');
+
+formTambahGejala.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('/tambah-gejala', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            // Handle success response
+            alert('Gejala baru berhasil ditambahkan.');
+            // Reset the form if needed
+            formTambahGejala.reset();
+            // Close the modal if needed
+            const modalTambah = bootstrap.Modal.getInstance('#modalTambah');
+            modalTambah.hide();
+        } else {
+            // Handle error response
+            response.text().then(errorMessage => {
+                alert('Error: ' + errorMessage);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+    });
+});
         document.addEventListener("DOMContentLoaded", function() {
             const form = document.querySelector('form');
             const tambahGejalaBtn = document.querySelector('.btn-tambah');
@@ -435,12 +473,6 @@
                         return null;
                     });
             }
-
-
-
-
-
-
             function saveConsultation(doctorId, idPasien, idDiagnosis, hasilKonsul, status, keterangan) {
                 fetch('/save-consultation', {
                         method: 'POST',
