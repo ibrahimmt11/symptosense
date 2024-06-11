@@ -37,8 +37,8 @@ Route::get('/verifikasiDiagnosis', [VerifikasiDiagnosisController::class, 'verif
 Route::get('/keluhan', [KeluhanController::class, 'keluhan']);
 
 
-Route::get('/pengaturanD', [PengaturanDController::class, 'index']);
-Route::post('/update-profile-dokter', [PengaturanDController::class, 'update']);
+Route::get('/pengaturanD', [PengaturanDController::class, 'index'])->name('pengaturanD');
+Route::post('/update-profile-dokter', [PengaturanDController::class, 'update'])->name('updateProfileDokter');
 
 Route::get('/dashboardA', [DashboardPController::class, 'dashboardA']);
 Route::get('/pengaturanA', [PengaturanAController::class, 'pengaturanA']);
@@ -83,6 +83,7 @@ Route::post('/consultations/{id_diagnosis}/complete', [KonsultasiDController::cl
 Route::post('/consultations/complete/{id_diagnosis}', [KonsultasiDController::class, 'completeConsultation'])->name('consultations.complete');
 
 Route::get('/verifikasiDiagnosis/{id}', [VerifikasiDiagnosisController::class, 'verifikasiDiagnosis']);
+
 
 
 

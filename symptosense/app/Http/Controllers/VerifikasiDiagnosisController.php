@@ -7,11 +7,18 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Diagnosis;
 use App\Models\Pasien;
 use App\Models\Dokter;
+use Illuminate\Support\Facades\Auth;
 
 class VerifikasiDiagnosisController extends Controller
 {
     public function verifikasiDiagnosis()
     {
+        // Fetch the authenticated doctor's ID
+        $userId = Auth::id();
+        $dokterId = DB::table('dokter')->where('user_id', $userId)->value('id_dokter');
+
+        // Fetch the doctor's data
+        $dokter = Dokter::find($dokterId); 
         $consultations = DB::table('diagnosis')
             ->join('pasien', 'diagnosis.id_pasien', '=', 'pasien.id_pasien')
             ->join('dokter', 'diagnosis.id_dokter', '=', 'dokter.id_dokter')
@@ -24,6 +31,6 @@ class VerifikasiDiagnosisController extends Controller
             )
             ->get();
 
-        return view('Dokter.verifikasiDiagnosis', compact('consultations'));
+        return view('Dokter.verifikasiDiagnosis', compact('consultations', 'dokter'));
     }
 }

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\dokter;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class PengaturanDController extends Controller
@@ -69,6 +70,19 @@ class PengaturanDController extends Controller
             'alamat'  => 'required',
         ]);
 
+        $dokter = dokter::where('id_dokter', $request->id_dokter)->first();
+        $user = User::where('id', $request->id_user)->first();
+
+        if ($request->hasFile('profilePicture')) {
+            $file = $request->file('profilePicture');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $destinationPath = public_path('/assets/pfp');
+            $file->move($destinationPath, $filename);
+            $fotoHelperPath = 'assets/pfp/' . $filename;
+        } else {
+            $fotoHelperPath = null; // atau handle error sesuai kebutuhan Anda
+        }
+
         // Find the dokter record
         $dokter = dokter::where('id_dokter',$request->id_dokter)->first();
         $dokter->nama_lengkap = $request->nama;
@@ -77,7 +91,9 @@ class PengaturanDController extends Controller
         $dokter->no_telp = $request->noTelp;
         $dokter->email = $request->email;
         $dokter->alamat = $request->alamat; 
+        $dokter->profile_picture = $fotoHelperPath;
         $dokter->save();
+        dd($dokter);
 
         $user = User::where('id',$request->id_user)->first();
         $user->name = $request->nama;

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Diagnosis;
 use App\Models\Konsultasi;
+use App\Models\Pasien;
 
 
 class DashboardPController extends Controller
@@ -15,6 +16,7 @@ class DashboardPController extends Controller
     {
         $userId = Auth::id();
         $pasienId = DB::table('pasien')->where('user_id', $userId)->value('id_pasien');
+        $pasien = Pasien::where('user_id', $userId)->first();
 
         // Fetch total distinct doctors for consultations of the logged-in patient
         $totalConsultations = DB::table('konsultasi')
@@ -49,7 +51,13 @@ class DashboardPController extends Controller
             )
             ->get();
 
-        return view('Pasien/dashboardP', compact('totalConsultations', 'totalDiagnoses', 'pendingDiagnoses', 'consultations'));
+            return view('Pasien/dashboardP', compact(
+                'totalConsultations', 
+                'totalDiagnoses', 
+                'pendingDiagnoses', 
+                'consultations', 
+                'pasien'  // Pass the 'pasien' object
+            ));
     }
 
     public function dashboardD()

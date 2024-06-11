@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Str;
+use App\Models\dokter;
 
 class KonsultasiDController extends Controller
 {
@@ -14,6 +15,7 @@ class KonsultasiDController extends Controller
 
         // Fetch the 'id_dokter' based on the 'user_id'
         $dokterId = DB::table('dokter')->where('user_id', $userId)->value('id_dokter');
+        $dokter = Dokter::find($dokterId); 
 
         $consultations = DB::table('konsultasi')
             ->join('pasien', 'konsultasi.id_pasien', '=', 'pasien.id_pasien')
@@ -32,7 +34,10 @@ class KonsultasiDController extends Controller
             ->get();
 
         // Return the view with the consultations data
-        return view('Dokter.konsultasiD', ['consultations' => $consultations]);
+        return view('Dokter.konsultasiD', [
+            'consultations' => $consultations,
+            'dokter' => $dokter, // Pass the 'dokter' object
+        ]);
     }
 
     public function completeConsultation($id_diagnosis)

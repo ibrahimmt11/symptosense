@@ -63,7 +63,7 @@
                             <li class="nav-item mx-5">
                                 <a class="nav-link text-white d-flex align-items-center" aria-current="page" href="#">
                                     <i class="fs-5 lni lni-alarm"></i>
-                                    <img src="assets/images/profile.png" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
+                                    <img src="{{ asset($pasien->profile_picture) }}" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
                                     @if(Auth::check())
                                     <div>
                                         {{ Auth::user()->name }}

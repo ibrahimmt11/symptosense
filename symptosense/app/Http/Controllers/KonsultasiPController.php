@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Pasien;
 
 class KonsultasiPController extends Controller
 {
@@ -12,6 +13,7 @@ class KonsultasiPController extends Controller
         $userId = Auth::id();
 
         // Fetch the 'id_pasien' based on the 'user_id'
+        $pasien = Pasien::where('user_id', $userId)->first();
         $pasienId = DB::table('pasien')->where('user_id', $userId)->value('id_pasien');
 
         $consultations = DB::table('konsultasi')
@@ -31,7 +33,7 @@ class KonsultasiPController extends Controller
             ->get();
 
         // Return the view with the consultations data
-        return view('Pasien.konsultasiP', ['consultations' => $consultations]);
+        return view('Pasien.konsultasiP', ['consultations' => $consultations, 'pasien' => $pasien,]);
     }
 }
 

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\pasien;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PengaturanPController extends Controller
 {
@@ -73,6 +74,19 @@ class PengaturanPController extends Controller
             'tinggiBadan' => 'required',
         ]);
 
+        $pasien = Pasien::where('id_pasien',$request->id_pasien)->first();
+        $user = User::where('id', $request->id_user)->first();
+
+        if ($request->hasFile('profilePicture')) {
+            $file = $request->file('profilePicture');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $destinationPath = public_path('/assets/pfp');
+            $file->move($destinationPath, $filename);
+            $fotoHelperPath = 'assets/pfp/' . $filename;
+        } else {
+            $fotoHelperPath = null; // atau handle error sesuai kebutuhan Anda
+        }
+
         // Find the Pasien record
         $pasien = Pasien::where('id_pasien',$request->id_pasien)->first();
         $pasien->nama_lengkap = $request->nama;
@@ -83,6 +97,7 @@ class PengaturanPController extends Controller
         $pasien->alamat = $request->alamat; 
         $pasien->tinggi_badan = $request->tinggiBadan;
         $pasien->berat_badan = $request->beratBadan;
+        $pasien->profile_picture = $fotoHelperPath;
         $pasien->save();
 
         $user = User::where('id',$request->id_user)->first();
