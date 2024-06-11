@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Diagnosis;
 use App\Models\Konsultasi;
 use App\Models\Pasien;
+use App\Models\dokter;
 
 class dashboardDController extends Controller
 {
@@ -15,12 +16,15 @@ class dashboardDController extends Controller
     {
         // Fetch total registered patients
         $totalPatients = DB::table('pasien')->count();
+        $userId = Auth::id(); 
+        $dokterId = DB::table('dokter')->where('user_id', $userId)->value('id_dokter');
+        $dokter = Dokter::find($dokterId); 
 
         // Fetch pending diagnoses
         $pendingDiagnoses = DB::table('diagnosis')
             ->where('status', 'Menunggu')
             ->count();
 
-        return view('Dokter.dashboardD', compact('totalPatients', 'pendingDiagnoses'));
+        return view('Dokter.dashboardD', compact('totalPatients', 'pendingDiagnoses', 'dokter'));
     }
 }

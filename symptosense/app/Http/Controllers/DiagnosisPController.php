@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Diagnosis;
 use App\Models\Konsultasi;
 use App\Models\Verifikasi;
+use App\Models\Pasien;
 
 class DiagnosisPController extends Controller
 {
@@ -16,6 +17,7 @@ class DiagnosisPController extends Controller
         $userId = Auth::id();
         $pasienId = DB::table('pasien')->where('user_id', $userId)->value('id_pasien');
         $keluhan = DB::table('jeniskeluhan')->select('nama_keluhan')->get();
+        $pasien = Pasien::where('user_id', $userId)->first();
 
         $diagnosisHistory = DB::table('diagnosis')
             ->join('dokter', 'diagnosis.id_dokter', '=', 'dokter.id_dokter')
@@ -25,7 +27,8 @@ class DiagnosisPController extends Controller
 
         return view('Pasien/diagnosisP', [
             'keluhan' => $keluhan,
-            'diagnosisHistory' => $diagnosisHistory
+            'diagnosisHistory' => $diagnosisHistory,
+            'pasien' => $pasien
         ]);
     }
 

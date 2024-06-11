@@ -11,6 +11,7 @@ class dokter extends Model
     use HasFactory;
     protected $table = 'dokter';
     protected $primaryKey = 'id_dokter';
+    
 
     protected $fillable = [
         'user_id',
@@ -20,7 +21,9 @@ class dokter extends Model
         'no_telp',
         'email',
         'alamat',
+        'profile_picture',
         'bukti_str',
+        
     ];
 
     // In Dokter model

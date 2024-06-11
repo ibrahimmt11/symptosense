@@ -23,6 +23,7 @@ class pasien extends Model
         'tinggi_badan',
         'berat_badan',
         'NIK',
+        'profile_picture',
     ];
 
     public function User() {

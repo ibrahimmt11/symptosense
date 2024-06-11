@@ -69,8 +69,8 @@
                                 <a class="nav-link text-white d-flex align-items-center" aria-current="page"
                                     href="#">
                                     <i class="fs-5 lni lni-alarm"></i>
-                                    <img src="assets/images/profile.png" alt="Profile Picture"
-                                        class="rounded-circle me-2 profile-pic">
+
+                                    <img src="{{ asset($dokter->profile_picture) }}" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
                                     <div>
                                         {{ Auth::user()->name }}
                                         <br>Pasien
@@ -113,32 +113,65 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($consultations->isEmpty())
-                                    <tr>
-                                        <td colspan="6" class="btn btn-primary">Belum ada history diagnosis.</td>
-                                    </tr>
-                                @else
-                                    @foreach ($consultations as $consultation)
-                                        <tr>
-                                            <th scope="row">{{ $loop->index + 1 }}</th>
-                                            <td>{{ $consultation->nama_lengkap }}</td>
-                                            <td>{{ $consultation->id_diagnosis }}</td>
-                                            <td>{{ $consultation->hasil_diagnosis }}</td>
-                                            <td data-gejala="{{ $consultation->gejala_terpilih }}">
-                                                {{ $consultation->diagnosis_dokter }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-verif" data-bs-toggle="modal"
-                                                    data-bs-target="#detailModal"
-                                                    data-nama="{{ $consultation->nama_lengkap }}"
-                                                    data-id="{{ $consultation->id_diagnosis }}"
-                                                    data-diagnosis="{{ $consultation->hasil_diagnosis }}"
-                                                    data-gejala="{{ json_encode($consultation->gejala_terpilih) }}">Details</button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+
+                                @php
+                                $currentPage = request()->has('page') ? request()->get('page') : 1;
+                                $startIndex = ($currentPage - 1) * 5;
+                                $endIndex = $startIndex + 4;
+                                @endphp
+                                @forelse($consultations->slice($startIndex, 5) as $consultation)
+                                <tr>
+                                    <th scope="row">{{ $loop->index + $startIndex + 1 }}</th>
+                                    <td>{{ $consultation->nama_lengkap }}</td>
+                                    <td>{{ $consultation->id_diagnosis }}</td>
+                                    <td>{{ $consultation->hasil_diagnosis }}</td>
+                                    <td data-gejala="{{ $consultation->gejala_terpilih }}">{{ $consultation->diagnosis_dokter }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-verif" data-bs-toggle="modal" data-bs-target="#detailModal" data-nama="{{ $consultation->nama_lengkap }}" data-id="{{ $consultation->id_diagnosis }}" data-diagnosis="{{ $consultation->hasil_diagnosis }}" data-gejala="{{ json_encode($consultation->gejala_terpilih) }}">Details</button>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="btn btn-primary">Belum ada history diagnosis.</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
+
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+                                    <!-- Previous Button -->
+                                    <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Page Numbers -->
+                                    @php
+                                    $totalPages = ceil($consultations->count() / 5);
+                                    $startPage = max(1, $currentPage - 2);
+                                    $endPage = min($totalPages, $startPage + 4);
+                                    $startPage = max(1, $endPage - 4);
+                                    @endphp
+
+                                    @for ($page = $startPage; $page <= $endPage; $page++) <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $page == 1 ? '?' : '?page=' . $page }}">{{ $page }}</a>
+                                        </li>
+                                        @endfor
+
+                                        <!-- Next Button -->
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

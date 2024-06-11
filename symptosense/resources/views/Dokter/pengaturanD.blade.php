@@ -63,7 +63,7 @@
                             <li class="nav-item mx-5">
                                 <a class="nav-link text-white d-flex align-items-center" aria-current="page" href="#">
                                     <i class="fs-5 lni lni-alarm"></i>
-                                    <img src="assets/images/profile.png" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
+                                    <img src="{{ asset($dokter->profile_picture) }}" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
                                     <div>
                                         {{ Auth::user()->name }}
                                         <br>dokter
@@ -101,9 +101,21 @@
                     </div>
                     <div class="container mb-5">
                         <div class="information">
-                        <form action="{{ url('update-profile-dokter') }}" method="POST">
+                            <form action="{{ route('updateProfileDokter') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="p-3 row">
+                                <div class="p-3 text-center">
+                                    <div class="form-group">
+                                        <label for="profilePicture">
+                                            @if ($dokter->profile_picture)
+                                                <img src="{{ asset($dokter->profile_picture) }}" alt="Profile Picture" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px;">
+                                            @else
+                                                <img src="{{ asset('assets/images/profile.png') }}" alt="Profile Picture" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px;">
+                                            @endif
+                                        </label>
+                                        <input type="file" class="form-control d-none" id="profilePicture" name="profilePicture">
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="hidden" name="id_dokter" value="{{ $dokter->id_dokter }}">
@@ -150,24 +162,6 @@
                         
                     </div>
                 </div>
-                <div class="container col-md-4 mt-3">
-                    <div class="profil">
-                        <form>
-                            <div class="p-3 text-center">
-                                <div class="form-group">
-                                    <label for="profilePic">
-                                        <img src="assets/images/profile.png" alt="Profile Picture" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px;">
-                                    </label>
-                                    <input type="file" class="form-control d-none" id="profilePic">
-                                </div>
-                                <div class="mt-3">
-                                    <button type="button" class="btn btn-primary">Ganti Profil</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
             </div>
 
 
