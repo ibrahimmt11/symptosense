@@ -99,7 +99,7 @@
                         <p class="info-text">Isi gejala yang anda alami!!</p>
                     </div>
                     <div class="container text-center">
-                        <form action="http://localhost:5000/submit" method="post">
+                        <form action="http://52.175.20.78:5000/submit" method="post">
                             <div class="row g-2" id="gejalaContainer">
                                 <!-- Existing dropdown for the first symptom -->
                                 <div class="col-6 gejala-dropdown">
@@ -307,7 +307,7 @@
                     }
                 }
 
-                fetch('http://localhost:5000/submit', {
+                fetch('http://52.175.20.78:5000/submit', {
                         method: 'POST',
                         body: formData
                     })
