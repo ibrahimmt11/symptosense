@@ -34,7 +34,10 @@ Route::get('/konsultasiP', [KonsultasiPController::class, 'konsultasiP'])->middl
 
 Route::get('/konsultasiD', [KonsultasiDController::class, 'konsultasiD'])->middleware('auth');;
 Route::get('/verifikasiDiagnosis', [VerifikasiDiagnosisController::class, 'verifikasiDiagnosis']);
+
+// keluhan
 Route::get('/keluhan', [KeluhanController::class, 'keluhan']);
+Route::post('/update-status/{id}', [KeluhanController::class, 'updateStatus'])->name('keluhan.update-status');
 
 
 Route::get('/pengaturanD', [PengaturanDController::class, 'index'])->name('pengaturanD');
@@ -85,8 +88,8 @@ Route::post('/consultations/complete/{id_diagnosis}', [KonsultasiDController::cl
 Route::get('/verifikasiDiagnosis/{id}', [VerifikasiDiagnosisController::class, 'verifikasiDiagnosis']);
 // Route::put('/verifikasiDiagnosis/update/{id}', [VerifikasiDiagnosisController::class, 'update'])->name('verifikasiDiagnosis.update');
 
-Route::post('/tambah-gejala', [DiagnosisPController::class, 'tambahGejala']);
-
+//Gejala
+Route::post('/diagnosisP/gejala/posts', [DiagnosisPController::class, 'insertGejala'])->name('post.gejala');
 
 
 
