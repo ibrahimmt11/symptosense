@@ -151,8 +151,35 @@ body {
 }
 
 .container .btn-verif {
-    background-color: #ff4d00;
-    color: white;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Verified button styles */
+.container .btn-verif.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* Verified button hover styles */
+.container .btn-verif.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Not verified button styles */
+.container .btn-verif.btn-warning {
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+/* Not verified button hover styles */
+.container .btn-verif.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
 }
 
 .container .judul {

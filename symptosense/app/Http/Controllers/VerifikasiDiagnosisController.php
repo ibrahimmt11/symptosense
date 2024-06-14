@@ -37,6 +37,22 @@ class VerifikasiDiagnosisController extends Controller
         return view('Dokter.verifikasiDiagnosis', compact('consultations', 'dokter'));
     }
 
+    public function getIdDokter(Request $request, $userId)
+    {
+        $dokterId = DB::table('dokter')->where('user_id', $userId)->value('id_dokter');
+
+        // Check if dokterId is found
+        if ($dokterId) {
+            return response()->json($dokterId); 
+        } else {
+            return response()->json(['error' => 'Dokter not found'], 404); // or appropriate error code
+        }
+    }
+
+
+
+
+
     public function update(Request $request, $id_diagnosis)
     {
         $request->validate([
@@ -81,10 +97,10 @@ class VerifikasiDiagnosisController extends Controller
         // Retrieve the data from the request
         $idDiagnosis = $request->input('id_diagnosis');
         $idDokter = $request->input('id_dokter');
-        $verificationOption = $request->input('verificationOption'); // Assuming you're sending the verification option in the request
+        $verificationOption = $request->input('status'); // Assuming you're sending the verification option in the request
 
         // Update the diagnosis record based on the verification option
-        if ($verificationOption === 'verify') {
+        if ($verificationOption == 'verified') {
             // Update the status to 'verified'
             DB::table('diagnosis')
                 ->where('id_diagnosis', $idDiagnosis)
@@ -97,9 +113,6 @@ class VerifikasiDiagnosisController extends Controller
             DB::table('diagnosis')
                 ->where('id_diagnosis', $idDiagnosis)
                 ->update(['status' => 'not verified']);
-
-            // Optionally, you can save additional data in the konsultasi table
-            // ...
         }
 
         return response()->json(['success' => true]);

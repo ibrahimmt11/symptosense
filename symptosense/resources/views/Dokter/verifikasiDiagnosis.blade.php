@@ -70,7 +70,8 @@
                                     href="#">
                                     <i class="fs-5 lni lni-alarm"></i>
 
-                                    <img src="{{ asset($dokter->profile_picture) }}" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
+                                    <img src="{{ asset($dokter->profile_picture) }}" alt="Profile Picture"
+                                        class="rounded-circle me-2 profile-pic">
                                     <div>
                                         {{ Auth::user()->name }}
                                         <br>Pasien
@@ -115,25 +116,57 @@
                             <tbody>
 
                                 @php
-                                $currentPage = request()->has('page') ? request()->get('page') : 1;
-                                $startIndex = ($currentPage - 1) * 5;
-                                $endIndex = $startIndex + 4;
+                                    $currentPage = request()->has('page') ? request()->get('page') : 1;
+                                    $startIndex = ($currentPage - 1) * 5;
+                                    $endIndex = $startIndex + 4;
                                 @endphp
                                 @forelse($consultations->slice($startIndex, 5) as $consultation)
-                                <tr>
-                                    <th scope="row">{{ $loop->index + $startIndex + 1 }}</th>
-                                    <td>{{ $consultation->nama_lengkap }}</td>
-                                    <td>{{ $consultation->id_diagnosis }}</td>
-                                    <td>{{ $consultation->hasil_diagnosis }}</td>
-                                    <td data-gejala="{{ $consultation->gejala_terpilih }}">{{ $consultation->diagnosis_dokter }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-verif" data-bs-toggle="modal" data-bs-target="#detailModal" data-nama="{{ $consultation->nama_lengkap }}" data-id="{{ $consultation->id_diagnosis }}" data-diagnosis="{{ $consultation->hasil_diagnosis }}" data-gejala="{{ json_encode($consultation->gejala_terpilih) }}">Details</button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row">{{ $loop->index + $startIndex + 1 }}</th>
+                                        <td>{{ $consultation->nama_lengkap }}</td>
+                                        <td>{{ $consultation->id_diagnosis }}</td>
+                                        <td>{{ $consultation->hasil_diagnosis }}</td>
+                                        <td data-gejala="{{ $consultation->gejala_terpilih }}">
+                                            {{ $consultation->diagnosis_dokter }}</td>
+                                        <td>
+                                            @php
+                                                $diagnosisStatus = DB::table('diagnosis')
+                                                    ->where('id_diagnosis', $consultation->id_diagnosis)
+                                                    ->value('status');
+                                            @endphp
+
+                                            @if ($diagnosisStatus == 'verified')
+                                                <button type="button" class="btn btn-success"
+                                                    id="detailButton-{{ $consultation->id_diagnosis }}"
+                                                    data-bs-toggle="modal" data-bs-target="#detailModal"
+                                                    data-nama="{{ $consultation->nama_lengkap }}"
+                                                    data-id="{{ $consultation->id_diagnosis }}"
+                                                    data-diagnosis="{{ $consultation->hasil_diagnosis }}"
+                                                    data-gejala="{{ json_encode($consultation->gejala_terpilih) }}">Verified</button>
+                                            @elseif ($diagnosisStatus == 'not verified')
+                                                <button type="button" class="btn btn-warning"
+                                                    id="detailButton-{{ $consultation->id_diagnosis }}"
+                                                    data-bs-toggle="modal" data-bs-target="#detailModal"
+                                                    data-nama="{{ $consultation->nama_lengkap }}"
+                                                    data-id="{{ $consultation->id_diagnosis }}"
+                                                    data-diagnosis="{{ $consultation->hasil_diagnosis }}"
+                                                    data-gejala="{{ json_encode($consultation->gejala_terpilih) }}">Not
+                                                    Verified</button>
+                                            @else
+                                                <button type="button" class="btn btn-primary"
+                                                    id="detailButton-{{ $consultation->id_diagnosis }}"
+                                                    data-bs-toggle="modal" data-bs-target="#detailModal"
+                                                    data-nama="{{ $consultation->nama_lengkap }}"
+                                                    data-id="{{ $consultation->id_diagnosis }}"
+                                                    data-diagnosis="{{ $consultation->hasil_diagnosis }}"
+                                                    data-gejala="{{ json_encode($consultation->gejala_terpilih) }}">Details</button>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @empty
-                                <tr>
-                                    <td colspan="6" class="btn btn-primary">Belum ada history diagnosis.</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="6" class="btn btn-primary">Belum ada history diagnosis.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -143,7 +176,9 @@
                                 <ul class="pagination">
                                     <!-- Previous Button -->
                                     <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}" aria-label="Previous">
+                                        <a class="page-link"
+                                            href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}"
+                                            aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
@@ -151,24 +186,28 @@
 
                                     <!-- Page Numbers -->
                                     @php
-                                    $totalPages = ceil($consultations->count() / 5);
-                                    $startPage = max(1, $currentPage - 2);
-                                    $endPage = min($totalPages, $startPage + 4);
-                                    $startPage = max(1, $endPage - 4);
+                                        $totalPages = ceil($consultations->count() / 5);
+                                        $startPage = max(1, $currentPage - 2);
+                                        $endPage = min($totalPages, $startPage + 4);
+                                        $startPage = max(1, $endPage - 4);
                                     @endphp
 
-                                    @for ($page = $startPage; $page <= $endPage; $page++) <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $page == 1 ? '?' : '?page=' . $page }}">{{ $page }}</a>
+                                    @for ($page = $startPage; $page <= $endPage; $page++)
+                                        <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
+                                            <a class="page-link"
+                                                href="{{ $page == 1 ? '?' : '?page=' . $page }}">{{ $page }}</a>
                                         </li>
-                                        @endfor
+                                    @endfor
 
-                                        <!-- Next Button -->
-                                        <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
+                                    <!-- Next Button -->
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                                        <a class="page-link"
+                                            href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -266,13 +305,15 @@
                 </div>
             </div> -->
             <!-- Modal Structure -->
-            <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="detailModalLabel">Details</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
                         <div class="modal-body">
                             <div class="container mb-5">
                                 <div class="information">
@@ -317,14 +358,16 @@
                                                         AI</label>
                                                     <input type="text" class="form-control" id="modalDiagnosisAI"
                                                         readonly>
-                                                    <select name="keterangan" id="verificationOption" id="" class="form-select">
+                                                    <select name="keterangan" id="verificationOption"
+                                                        class="form-select">
                                                         <option value="verify">Verify</option>
                                                         <option value="no-verify">No verify</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-12 text-end mt-3">
-                                                <button type="button" class="btn btn-submit" id="submitButton">Submit</button>
+                                                <button type="button" class="btn btn-submit"
+                                                    id="submitButton">Submit</button>
                                                 <!-- Change button color as needed -->
                                             </div>
                                         </form>
@@ -388,54 +431,84 @@
                     modalGejala.innerHTML = '<p>No symptoms available.</p>';
                 }
             });
-        var submitButton = document.getElementById('submitButton');
-        var verificationOption = document.getElementById('verificationOption');
-
-        submitButton.addEventListener('click', function() {
-            var option = verificationOption.value;
-            var idDiagnosis = document.getElementById('modalIDDiagnosis').value;
-            var idDokter = {{ Auth::user()->id }}; // Assuming you have access to the authenticated user's ID
-
-            if (option === 'verify') {
-                // Send an AJAX request to your server-side controller method
-                sendVerificationRequest(idDiagnosis, idDokter, "verified");
-            } else {
-                // No action needed for "No verify"
-                console.log('No verification requested.');
-                sendVerificationRequest(idDiagnosis, idDokter, "not verified");
-            }
-        });
-
-        function sendVerificationRequest(idDiagnosis, idDokter, verified) {
-            // Make an AJAX request using fetch or any other library like Axios
-            fetch('/update', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token for Laravel
-                },
-                body: JSON.stringify({
-                    id_dokter: idDokter,
-                    id_diagnosis: idDiagnosis,
-                    status: verified,
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Consultation saved successfully!');
-                    // Optionally, you can display a success message or perform any other actions
-                } else {
-                    console.error('Error saving consultation:', data.error);
-                    // Optionally, you can display an error message or perform any other actions
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Optionally, you can display an error message or perform any other actions
+            detailModal.addEventListener('hidden.bs.modal', function() {
+                detailModal.querySelector('#verificationOption').value = 'verify'; // Reset to default
             });
-        }
-    });
+
+            var submitButton = document.getElementById('submitButton');
+            var verificationOption = document.getElementById('verificationOption');
+
+            submitButton.addEventListener('click', function() {
+                var verificationOption = document.getElementById('verificationOption');
+                var option = verificationOption.value;
+                var idDiagnosis = document.getElementById('modalIDDiagnosis').value;
+                var userId = {{ Auth::user()->id }};
+                console.log(option);
+
+                if (option == 'verify') {
+                    // Send an AJAX request to your server-side controller method
+                    sendVerificationRequest(idDiagnosis, userId, "verified");
+
+                    // Update the button color
+                    var detailButton = document.getElementById('detailButton-' + idDiagnosis);
+                    detailButton.classList.remove('btn-warning');
+                    detailButton.classa
+                    detailButton.classList.add('btn-success');
+                } else {
+                    // No action needed for "No verify"
+                    console.log('No verification requested.');
+                    sendVerificationRequest(idDiagnosis, userId, "not verified");
+
+                    // Update the button color
+                    var detailButton = document.getElementById('detailButton-' + idDiagnosis);
+                    detailButton.classList.remove('btn-success');
+                    detailButton.classList.add('btn-warning');
+                }
+            });
+
+            function sendVerificationRequest(idDiagnosis, userId, status) {
+                fetch('/getIdDokter/' + userId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var idDokter = data;
+                        console.log(status);
+
+
+                        fetch('{{ route('consultations.update') }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({
+                                    id_dokter: idDokter,
+                                    id_diagnosis: idDiagnosis,
+                                    status: status,
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Close the modal after successful submission
+                                    var detailModal = bootstrap.Modal.getInstance(document.getElementById(
+                                        'detailModal'));
+                                    detailModal.hide();
+                                    console.log('Consultation saved successfully!');
+                                } else {
+                                    console.error('Error saving consultation:', data.error);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching idDokter:', error);
+                    });
+            }
+
+
+        });
     </script>
 
 

@@ -87,6 +87,12 @@ Route::get('/verifikasiDiagnosis/{id}', [VerifikasiDiagnosisController::class, '
 
 Route::post('/tambah-gejala', [DiagnosisPController::class, 'tambahGejala']);
 
+Route::post('/consultations/update', [VerifikasiDiagnosisController::class, 'updateConsultation'])->name('consultations.update');
+
+Route::get('/getIdDokter/{userId}', [VerifikasiDiagnosisController::class, 'getIdDokter'])->name('getIdDokter');
+
+
+
 
 
 
