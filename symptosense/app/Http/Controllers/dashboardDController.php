@@ -15,7 +15,6 @@ class dashboardDController extends Controller
     public function dashboardD()
     {
         // Fetch total registered patients
-        $totalPatients = DB::table('pasien')->count();
         $userId = Auth::id(); 
         $dokterId = DB::table('dokter')->where('user_id', $userId)->value('id_dokter');
         $dokter = Dokter::find($dokterId); 

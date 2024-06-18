@@ -18,7 +18,9 @@ use App\Http\Controllers\RiwayatPController;
 use App\Http\Controllers\VerifikasiDiagnosisController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\DashboardDController;
+use App\Http\Controllers\DashboardAController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', [LandingController::class, 'landing']);
 Route::get('/artikel', [ArtikelController::class, 'artikel']);
@@ -45,7 +47,11 @@ Route::post('/update-profile-dokter', [PengaturanDController::class, 'update'])-
 
 Route::get('/dashboardA', [DashboardPController::class, 'dashboardA']);
 Route::get('/pengaturanA', [PengaturanAController::class, 'pengaturanA']);
-Route::get('/kelolaAkun', [KelolaAkunController::class, 'kelolaAkun']);
+
+Route::get('/kelolaAkun', [KelolaAkunController::class, 'kelolaAkun'])->name('kelola-akun');
+Route::get('/activate/{id}', [KelolaAkunController::class, 'activate'])->name('activate');
+Route::get('/deactivate/{id}', [KelolaAkunController::class, 'deactivate'])->name('deactivate');
+
 
 Route::get('/dashboardP', [DashboardPController::class, 'dashboardP'])
     ->name('dashboardP')
@@ -55,6 +61,11 @@ Route::get('/dashboardP', [DashboardPController::class, 'dashboardP'])
 Route::get('/dashboardD', [DashboardDController::class, 'dashboardD'])
     ->name('dashboardD')
     ->middleware('auth', 'dokter');
+
+
+Route::get('/dashboardA', [DashboardAController::class, 'dashboardA'])
+    ->name('dashboardA')
+    ->middleware('auth', 'admin');
 
 
 Route::get('/riwayatP', [RiwayatPController::class, 'riwayatP']);
