@@ -63,7 +63,7 @@
                                     <img src="assets/images/profile.png" alt="Profile Picture"
                                         class="rounded-circle me-2 profile-pic">
                                     <div>
-                                        Epul
+                                        {{ Auth::user()->name }}
                                         <br>Admin
                                     </div>
                                 </a>
@@ -105,56 +105,21 @@
                             <div class="text-content">
                                 <h2 class="p-3 title">Dokter Aktif</h2>
                                 <div class="list-group">
-                                    <a href="#"
-                                        class="list-group-item list-group-item-action d-flex align-items-center">
-                                        <img src="assets/images/pasien.png" class="rounded-circle me-2 profile-pic"
-                                            alt="Profile Picture">
-                                        <div>
-                                            <span class="fw-bold">Dr. Adbi Kusuma</span><br>
-                                            <span>Spesialis Anak</span>
-                                        </div>
-                                    </a>
-                                    <a href="#"
-                                        class="list-group-item list-group-item-action d-flex align-items-center">
-                                        <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic"
-                                            alt="Profile Picture">
-                                        <div>
-                                            <span class="fw-bold">Dr. Jason</span><br>
-                                            <span>Spesialis Mata</span>
-                                        </div>
-                                    </a>
-                                    <a href="#"
-                                        class="list-group-item list-group-item-action d-flex align-items-center">
-                                        <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic"
-                                            alt="Profile Picture">
-                                        <div>
-                                            <span class="fw-bold">Dr. Ronald</span><br>
-                                            <span>Spesialis Kulit</span>
-                                        </div>
-                                    </a>
-                                    <a href="#"
-                                        class="list-group-item list-group-item-action d-flex align-items-center">
-                                        <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic"
-                                            alt="Profile Picture">
-                                        <div>
-                                            <span class="fw-bold">Dr. Tirta</span><br>
-                                            <span>Spesialis Anak</span>
-                                        </div>
-                                    </a>
-                                    <a href="#"
-                                        class="list-group-item list-group-item-action d-flex align-items-center">
-                                        <img src="assets/images/diagnosis.png" class="rounded-circle me-2 profile-pic"
-                                            alt="Profile Picture">
-                                        <div>
-                                            <span class="fw-bold">Dr. Cahya</span><br>
-                                            <span>Spesialis Mata</span>
-                                        </div>
-                                    </a>
+                                    @foreach ($activeDoctors as $doctor)
+                                        <a href="#"
+                                            class="list-group-item list-group-item-action d-flex align-items-center">
+                                            <img src="assets/images/profile.png" class="rounded-circle me-2 profile-pic"
+                                                alt="Profile Picture">
+                                            <div>
+                                                <span class="fw-bold">{{ $doctor->user->name }}</span><br>
+                                                <span>{{ $doctor->specialization }}</span>
+                                            </div>
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -177,7 +142,9 @@
             data: {
                 labels: ['Child', 'Teen', 'Adult', 'Older'],
                 datasets: [{
-                    data: [160, 100, 40, 200],
+                    data: [{{ $childPatients }}, {{ $teenPatients }}, {{ $adultPatients }},
+                        {{ $olderPatients }}
+                    ],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.7)', // Child
                         'rgba(54, 162, 235, 0.7)', // Teen

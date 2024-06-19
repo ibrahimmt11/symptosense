@@ -15,21 +15,23 @@ class DashboardAController extends Controller
 {
     public function dashboardA()
     {
-        // Fetch total registered patients
-        $totalPatients = DB::table('pasien')->count();
-        
-        // Fetch total registered doctors
-        $totalDoctors = DB::table('dokter')->count();
+        // Fetch total patients and doctors
+        $totalPatients = Pasien::count();
+        $totalDoctors = Dokter::count();
 
-        // Get the currently authenticated user
-        $userId = Auth::id();
-        
-        // Fetch the admin information based on the authenticated user's ID
-        $adminId = DB::table('admin')->where('user_id', $userId)->value('id_admin');
-        $admin = Admin::find($adminId);
+        // Categorize patients by age
+        $childPatients = Pasien::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) < 12')->count();
+        $teenPatients = Pasien::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) BETWEEN 12 AND 18')->count();
+        $adultPatients = Pasien::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) BETWEEN 19 AND 59')->count();
+        $olderPatients = Pasien::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) >= 60')->count();
 
-        // Return the view with the admin data, totalPatients, and totalDoctors
-        return view('Admin.dashboardA', compact('admin', 'totalPatients', 'totalDoctors'));
+        // Fetch active doctors
+        $activeDoctors = Dokter::whereHas('user', function ($query) {
+            $query->where('status', 'Aktif');
+        })->get();
+
+        return view('Admin.dashboardA', compact('totalPatients', 'totalDoctors', 'childPatients', 'teenPatients', 'adultPatients', 'olderPatients', 'activeDoctors'));
     }
+
 
 }

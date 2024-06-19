@@ -60,7 +60,7 @@
                                     <img src="assets/images/profile.png" alt="Profile Picture"
                                         class="rounded-circle me-2 profile-pic">
                                     <div>
-                                        Epul
+                                        {{ Auth::user()->name }}
                                         <br>Admin
                                     </div>
                                 </a>

@@ -107,6 +107,9 @@ Route::get('/getIdDokter/{userId}', [VerifikasiDiagnosisController::class, 'getI
 
 Route::post('/diagnosisP/gejala/posts', [DiagnosisPController::class, 'insertGejala'])->name('post.gejala');
 
+Route::get('/pengaturanA', [PengaturanAController::class, 'index'])->name('pengaturanA');
+Route::put('/update-profile-admin', [PengaturanAController::class, 'update'])->name('updateProfileAdmin');
+
 
 
 
