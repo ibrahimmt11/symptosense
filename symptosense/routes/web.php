@@ -20,7 +20,11 @@ use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\DashboardDController;
 use App\Http\Controllers\DashboardAController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 
+Route::post('/start-meeting/{id_diagnosis}', [MeetingController::class, 'startMeeting'])->name('start.meeting');
+Route::get('/join-meeting/{id_diagnosis}', [MeetingController::class, 'joinMeeting'])->name('join.meeting');
+Route::get('/check-notification', [MeetingController::class, 'checkNotification'])->name('check.notification');
 
 Route::get('/', [LandingController::class, 'landing']);
 Route::get('/artikel', [ArtikelController::class, 'artikel']);

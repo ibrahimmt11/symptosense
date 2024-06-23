@@ -8,16 +8,36 @@
     <link rel="stylesheet" href="assets/css/Pasien/dashboardP.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Dashboard</title>
+    <style>
+        .new-notification {
+            color: white;
+        }
+
+        #notification-area {
+            position: relative;
+        }
+
+        #notification-message {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 300px;
+            z-index: 1000;
+        }
+    </style>
 </head>
 
 <body style="background-color: #D6E4F0;">
     <div class="main-container d-flex">
         <div class="sidebar" id="side_nav">
             <div class="header-box px-2 pt-3 pb-4 d-flex flex-column justify-content-between">
-                <h1 class="fs-4"><span class="bg-dark text-white rounded shadow px-2 me-2">SS</span><span class="title">Symptosense</span></h1>
-                <button class="btn d-md-none d-block close-btn px-1 py-0 text-white"><i class="fal fa-stream"></i></button>
+                <h1 class="fs-4"><span class="bg-dark text-white rounded shadow px-2 me-2">SS</span><span
+                        class="title">Symptosense</span></h1>
+                <button class="btn d-md-none d-block close-btn px-1 py-0 text-white"><i
+                        class="fal fa-stream"></i></button>
             </div>
 
             <ul class="list-unstyled px-2 ">
@@ -48,7 +68,8 @@
             </ul>
 
             <ul class="list-unstyled px-2 bottom-nav">
-                <li class=""><a href="/pengaturanP" class="d-flex align-items-center sidebar-link py-3"><i class="fs-2 lni lni-cog"></i>
+                <li class=""><a href="/pengaturanP" class="d-flex align-items-center sidebar-link py-3"><i
+                            class="fs-2 lni lni-cog"></i>
                         <span class="fs-6 ms-2 d-none d-sm-inline">Pengaturan</span></a></li>
                 <li class="">
                     <a href="{{ route('logout') }}" class="d-flex align-items-center sidebar-link py-3">
@@ -64,14 +85,22 @@
                     <div class="collapse navbar-collapse justify-content-end">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                             <li class="nav-item mx-5">
-                                <a class="nav-link text-white d-flex align-items-center" aria-current="page" href="#">
-                                    <i class="fs-5 lni lni-alarm"></i>
-                                    <img src="{{ asset($pasien->profile_picture) }}" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
-                                    @if(Auth::check())
-                                    <div>
-                                        {{ Auth::user()->name }}
-                                        <br>Pasien
+                                <a class="nav-link text-white d-flex align-items-center" aria-current="page"
+                                    href="#">
+                                    <div id="notification-area">
+                                        <i id="alarm-icon" class="fs-5 lni lni-alarm new-notification"></i>
+                                        <div id="notification-message"
+                                            style="display: none; background-color: #f8d7da; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                            Meeting sudah dimulai oleh dokter, silahkan join dengan ID diagnosis anda!
+                                        </div>
                                     </div>
+                                    <img src="{{ asset($pasien->profile_picture) }}" alt="Profile Picture"
+                                        class="rounded-circle me-2 profile-pic">
+                                    @if (Auth::check())
+                                        <div>
+                                            {{ Auth::user()->name }}
+                                            <br>Pasien
+                                        </div>
                                     @endif
                                 </a>
                             </li>
@@ -138,33 +167,39 @@
                             </thead>
                             <tbody>
                                 @php
-                                $currentPage = request()->has('page') ? request()->get('page') : 1;
-                                $startIndex = ($currentPage - 1) * 5;
-                                $endIndex = $startIndex + 4;
+                                    $currentPage = request()->has('page') ? request()->get('page') : 1;
+                                    $startIndex = ($currentPage - 1) * 5;
+                                    $endIndex = $startIndex + 4;
                                 @endphp
                                 @forelse($consultations->slice($startIndex, 5) as $consultation)
-                                <tr>
-                                    <th scope="row">{{ $loop->index + $startIndex + 1 }}</th>
-                                    <td>{{ $consultation->nama_lengkap }}</td>
-                                    <td>{{ $consultation->id_diagnosis }}</td>
-                                    <td>{{ $consultation->hasil_diagnosis }}</td>
-                                    <td>{{ $consultation->diagnosis_dokter }}</td>
-                                    <td>
-                                        @if($consultation->status === 'completed')
-                                        <span class="badge badge-success" style="background-color: green;">Completed</span>
-                                        @elseif($consultation->meeting_status === 'scheduled')
-                                        <button class="btn btn-primary" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Meeting</button>
-                                        @elseif($consultation->meeting_status === 'active')
-                                        <button class="btn btn-success" onclick="showIframe('{{ $consultation->meeting_link }}')">Join Active Meeting</button>
-                                        @else
-                                        <span class="badge badge-secondary" style="color: black">No Meeting Scheduled</span>
-                                        @endif
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row">{{ $loop->index + $startIndex + 1 }}</th>
+                                        <td>{{ $consultation->nama_lengkap }}</td>
+                                        <td>{{ $consultation->id_diagnosis }}</td>
+                                        <td>{{ $consultation->hasil_diagnosis }}</td>
+                                        <td>{{ $consultation->diagnosis_dokter }}</td>
+                                        <td>
+                                            @if ($consultation->status === 'completed')
+                                                <span class="badge badge-success"
+                                                    style="background-color: green;">Completed</span>
+                                            @elseif($consultation->meeting_status === 'scheduled')
+                                                <button class="btn btn-primary"
+                                                    onclick="showIframe('{{ $consultation->meeting_link }}')">Join
+                                                    Meeting</button>
+                                            @elseif($consultation->meeting_status === 'active')
+                                                <button class="btn btn-success"
+                                                    onclick="showIframe('{{ $consultation->meeting_link }}')">Join
+                                                    Active Meeting</button>
+                                            @else
+                                                <span class="badge badge-secondary" style="color: black">No Meeting
+                                                    Scheduled</span>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -174,7 +209,9 @@
                                 <ul class="pagination">
                                     <!-- Previous Button -->
                                     <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}" aria-label="Previous">
+                                        <a class="page-link"
+                                            href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}"
+                                            aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
@@ -182,24 +219,28 @@
 
                                     <!-- Page Numbers -->
                                     @php
-                                    $totalPages = ceil($consultations->count() / 5);
-                                    $startPage = max(1, $currentPage - 2);
-                                    $endPage = min($totalPages, $startPage + 4);
-                                    $startPage = max(1, $endPage - 4);
+                                        $totalPages = ceil($consultations->count() / 5);
+                                        $startPage = max(1, $currentPage - 2);
+                                        $endPage = min($totalPages, $startPage + 4);
+                                        $startPage = max(1, $endPage - 4);
                                     @endphp
 
-                                    @for ($page = $startPage; $page <= $endPage; $page++) <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $page == 1 ? '?' : '?page=' . $page }}" style="background-color:#163172">{{ $page }}</a>
+                                    @for ($page = $startPage; $page <= $endPage; $page++)
+                                        <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $page == 1 ? '?' : '?page=' . $page }}"
+                                                style="background-color:#163172">{{ $page }}</a>
                                         </li>
-                                        @endfor
+                                    @endfor
 
-                                        <!-- Next Button -->
-                                        <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
+                                    <!-- Next Button -->
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                                        <a class="page-link"
+                                            href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -216,11 +257,38 @@
             window.open(url, '_blank');
         }
     </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
     <script src="assets/js/sidenav.js"></script>
     <script src="https://meet.jit.si/external_api.js"></script>
     <script src="{{ asset('js/jitsi.js') }}"></script>
+    <script>
+        function showNotification() {
+            fetch("{{ route('check.notification') }}")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.notification) {
+                        // Logic for showing notification
+                        document.getElementById('alarm-icon').classList.add('new-notification');
+                        document.getElementById('notification-message').style.display = 'block';
+                        //document.getElementById('notification-message').innerText = data.notification;
+                        console.log('Meeting started for diagnosis ID:', data.notification);
+
+                        // Hide notification after 30 seconds
+                        setTimeout(function() {
+                            document.getElementById('notification-message').style.display = 'none';
+                            document.getElementById('alarm-icon').classList.remove('new-notification');
+                        }, 10000);
+                    }
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification(); // Call function once when the page loads
+        });
+    </script>
 </body>
 
 </html>

@@ -68,13 +68,20 @@
                             <li class="nav-item mx-5">
                                 <a class="nav-link text-white d-flex align-items-center" aria-current="page"
                                     href="#">
-                                    <i class="fs-5 lni lni-alarm"></i>
-                                    <img src="{{ asset($pasien->profile_picture) }}" alt="Profile Picture" class="rounded-circle me-2 profile-pic">
-                                    @if(Auth::check())
-                                    <div>
-                                        {{ Auth::user()->name }}
-                                        <br>Pasien
+                                    <div id="notification-area">
+                                        <i id="alarm-icon" class="fs-5 lni lni-alarm new-notification"></i>
+                                        <div id="notification-message"
+                                            style="display: none; background-color: #f8d7da; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                            Meeting sudah dimulai oleh dokter, silahkan join dengan ID diagnosis anda!
+                                        </div>
                                     </div>
+                                    <img src="{{ asset($pasien->profile_picture) }}" alt="Profile Picture"
+                                        class="rounded-circle me-2 profile-pic">
+                                    @if (Auth::check())
+                                        <div>
+                                            {{ Auth::user()->name }}
+                                            <br>Pasien
+                                        </div>
                                     @endif
                                 </a>
                             </li>
@@ -115,7 +122,8 @@
                                     <select name="gejala2" id="gejala2" class="form-select">
                                         <option selected disabled value="">Pilih gejala anda</option>
                                         @foreach ($keluhan as $item)
-                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}</option>
+                                            <option value="{{ $item->nama_keluhan }}">{{ $item->nama_keluhan }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -172,28 +180,29 @@
                             </thead>
                             <tbody>
                                 @php
-                                $currentPage = request()->has('page') ? request()->get('page') : 1;
-                                $startIndex = ($currentPage - 1) * 5;
-                                $endIndex = $startIndex + 4;
+                                    $currentPage = request()->has('page') ? request()->get('page') : 1;
+                                    $startIndex = ($currentPage - 1) * 5;
+                                    $endIndex = $startIndex + 4;
                                 @endphp
                                 @forelse($diagnosisHistory->slice($startIndex, 5) as $history)
-                                <tr>
-                                    <th scope="row">{{ $loop->index + $startIndex + 1  }}</th>
-                                    <td>{{ $history->nama_lengkap }}</td>
-                                    <td>{{ $history->id_diagnosis }}</td>
-                                    <td>{{ $history->hasil_diagnosis }}</td>
-                                    <!-- Assuming a static file for demonstration -->
-                                    <td>{{ $history->diagnosis_dokter }}</td>
-                                    <td>
-                                        <button type="button" class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
-                                            {{ $history->status }}
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row">{{ $loop->index + $startIndex + 1 }}</th>
+                                        <td>{{ $history->nama_lengkap }}</td>
+                                        <td>{{ $history->id_diagnosis }}</td>
+                                        <td>{{ $history->hasil_diagnosis }}</td>
+                                        <!-- Assuming a static file for demonstration -->
+                                        <td>{{ $history->diagnosis_dokter }}</td>
+                                        <td>
+                                            <button type="button"
+                                                class="btn {{ $history->status == 'Done' ? 'btn-done' : 'btn-meet' }}">
+                                                {{ $history->status }}
+                                            </button>
+                                        </td>
+                                    </tr>
                                 @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum ada history diagnosis.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -202,7 +211,9 @@
                                 <ul class="pagination">
                                     <!-- Previous Button -->
                                     <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}" aria-label="Previous">
+                                        <a class="page-link"
+                                            href="{{ $currentPage == 1 ? '#' : '?page=' . ($currentPage - 1) }}"
+                                            aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
@@ -210,24 +221,28 @@
 
                                     <!-- Page Numbers -->
                                     @php
-                                    $totalPages = ceil($diagnosisHistory->count() / 5);
-                                    $startPage = max(1, $currentPage - 2);
-                                    $endPage = min($totalPages, $startPage + 4);
-                                    $startPage = max(1, $endPage - 4);
+                                        $totalPages = ceil($diagnosisHistory->count() / 5);
+                                        $startPage = max(1, $currentPage - 2);
+                                        $endPage = min($totalPages, $startPage + 4);
+                                        $startPage = max(1, $endPage - 4);
                                     @endphp
 
-                                    @for ($page = $startPage; $page <= $endPage; $page++) <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $page == 1 ? '?' : '?page=' . $page }}">{{ $page }}</a>
+                                    @for ($page = $startPage; $page <= $endPage; $page++)
+                                        <li class="page-item {{ $currentPage == $page ? 'active' : '' }}">
+                                            <a class="page-link"
+                                                href="{{ $page == 1 ? '?' : '?page=' . $page }}">{{ $page }}</a>
                                         </li>
-                                        @endfor
+                                    @endfor
 
-                                        <!-- Next Button -->
-                                        <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
+                                    <!-- Next Button -->
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                                        <a class="page-link"
+                                            href="{{ $currentPage == $totalPages ? '#' : '?page=' . ($currentPage + 1) }}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -336,7 +351,7 @@
                                     body: JSON.stringify({
                                         prognosis: data.prognosis.join(', '),
                                         selected_symptoms: selectedSymptoms,
-                                        
+
                                     })
                                 })
                                 .then(response => response.json())
@@ -383,7 +398,7 @@
 
                                 // Fetch id_pasien and id_diagnosis from somewhere in your page
                                 const idPasien =
-                            getLoggedInUserId(); // Example function to get id_pasien
+                                    getLoggedInUserId(); // Example function to get id_pasien
 
                                 // Example function to get id_diagnosis
                                 fetch(`/get-newly-created-diagnosis-id/${idPasien}`)
@@ -391,7 +406,7 @@
                                     .then(data => {
                                         if (data.id) {
                                             const idDiagnosis = data
-                                            .id; // Assuming the diagnosis ID is returned in the response
+                                                .id; // Assuming the diagnosis ID is returned in the response
                                             const hasilKonsul = 'Some hardcoded result';
                                             const status = 'Some hardcoded status';
 
@@ -401,7 +416,7 @@
                                         } else {
                                             console.error(
                                                 'Failed to get newly created diagnosis ID'
-                                                );
+                                            );
                                         }
                                     })
                                     .catch(error => console.error('Error:', error));
@@ -507,6 +522,31 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script src="assets/js/sidenav.js"></script>
+    <script>
+        function showNotification(idDiagnosis) {
+            fetch("{{ route('check.notification') }}?id_diagnosis=" + idDiagnosis)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.notification) {
+                        // Logic for showing notification
+                        document.getElementById('alarm-icon').classList.add('new-notification');
+                        document.getElementById('notification-message').style.display = 'block';
+                        //document.getElementById('notification-message').innerText = data.notification;
+                        console.log('Meeting started for diagnosis ID:', data.notification);
+
+                        // Hide notification after 30 seconds
+                        setTimeout(function() {
+                            document.getElementById('notification-message').style.display = 'none';
+                            document.getElementById('alarm-icon').classList.remove('new-notification');
+                        }, 10000);
+                    }
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification(); // Call function once when the page loads
+        });
+    </script>
 </body>
 
 </html>

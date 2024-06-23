@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Meeting;
+use App\Events\MeetingStarted;
+use Illuminate\Support\Facades\Cache;
 
 
 class MeetingController extends Controller
@@ -30,7 +32,11 @@ class MeetingController extends Controller
             'status' => 'scheduled',
             'scheduled_time' => now()
         ]);
-    
+
+        // Store notification in cache
+        Cache::put('meeting_notification', $id_diagnosis, now()->addMinutes(1));
+        event(new MeetingStarted($id_diagnosis));
+
         return redirect()->to($meetingLink);
     }
     
@@ -45,6 +51,14 @@ class MeetingController extends Controller
 
         // Pass the meeting link to the view
         return view('Pasien.iframe', ['meetingLink' => $meeting->meeting_link]); 
+    }
+
+    public function checkNotification()
+    {
+        // Check notification from cache
+        $notification = Cache::get('meeting_notification');
+        
+        return response()->json(['notification' => $notification]);
     }
     
     
